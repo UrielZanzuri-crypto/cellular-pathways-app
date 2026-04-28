@@ -253,7 +253,7 @@ ATM and ATR phosphorylate p53 on Ser-15. They also phosphorylate MDM2, weakening
       // Cyclin D phosphorylates Rb → releases E2F → S entry
       { from: 'cycD', to: 'rb', label: 'phosphorylates', style: 'activate' },
       { from: 'rb', to: 'e2f', label: 'releases', style: 'activate' },
-      { from: 'e2f', to: 'sentry', label: 'transcribes S genes', style: 'activate' },
+      { from: 'e2f', to: 'sentry', label: '→ S genes', style: 'activate' },
       { from: 'cycE', to: 'sentry', label: 'drives entry', style: 'activate' },
       // Damage path
       { from: 'damage', to: 'p53', label: 'ATM/ATR stabilize', style: 'activate' },

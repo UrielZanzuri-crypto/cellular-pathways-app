@@ -253,9 +253,9 @@ Predictable PK, no INR monitoring, fewer drug/food interactions. Reversed by **a
       { from: 'va', to: 'xa', label: 'cofactor', style: 'activate' },
       { from: 'xa', to: 'iia', label: 'prothrombinase', style: 'activate' },
       // Thrombin amplification
-      { from: 'iia', to: 'va',    label: 'feedback +',  style: 'activate' },
-      { from: 'iia', to: 'viiia', label: 'feedback +',  style: 'activate' },
-      { from: 'iia', to: 'xia',   label: 'feedback +',  style: 'activate' },
+      { from: 'iia', to: 'va',    label: 'amplifies V',    style: 'activate' },
+      { from: 'iia', to: 'viiia', label: 'amplifies VIII', style: 'activate' },
+      { from: 'iia', to: 'xia',   label: 'amplifies XI',   style: 'activate' },
       // Fibrin formation
       { from: 'fbg', to: 'fib', label: 'thrombin cleaves', style: 'activate' },
       { from: 'iia', to: 'fib', label: 'cleaves fibrinogen', style: 'activate' },

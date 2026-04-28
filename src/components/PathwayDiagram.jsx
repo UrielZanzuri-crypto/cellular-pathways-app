@@ -152,16 +152,52 @@ export default function PathwayDiagram({
           }
         }
 
-        // Label chip sits at the midpoint, slightly nudged perpendicular to
-        // the line so it doesn't sit on the line itself. The chip is solid
-        // white so the line behind it is hidden — much cleaner than text on
-        // top of a line.
-        const mx = (start.x + end.x) / 2;
-        const my = (start.y + end.y) / 2;
+        // Label placement: try several positions along the edge and pick the
+        // FIRST one that doesn't overlap any other node. This silently fixes
+        // the case where a short edge or one running near a sibling has its
+        // midpoint label clip into another rect. Authors can also force a
+        // specific position via e.labelPos (0 = at source, 0.5 = midpoint,
+        // 1 = at target).
         const labelLen = (e.label || '').length;
         const chipW = Math.max(40, labelLen * 6.6 + 14);
         const chipH = 18;
+
+        // Other nodes whose rects we want the label to avoid
+        const others = path.nodes.filter(n => n.id !== e.from && n.id !== e.to);
+
+        function overlapsAnyNode(x, y) {
+          for (const n of others) {
+            const sz = effectiveSize(n);
+            const nx1 = n.x - sz.w / 2 - 4;  // 4-px padding
+            const nx2 = n.x + sz.w / 2 + 4;
+            const ny1 = n.y - sz.h / 2 - 4;
+            const ny2 = n.y + sz.h / 2 + 4;
+            if (x - chipW / 2 < nx2 && x + chipW / 2 > nx1 &&
+                y - chipH / 2 < ny2 && y + chipH / 2 > ny1) {
+              return true;
+            }
+          }
+          return false;
+        }
+
+        // Candidate t-values along the edge (from source to target, 0..1)
+        const candidates = e.labelPos !== undefined
+          ? [e.labelPos]                       // author override — use exactly that
+          : [0.5, 0.4, 0.6, 0.35, 0.65, 0.3, 0.7, 0.25, 0.75];
+
+        let mx = (start.x + end.x) / 2;
+        let my = (start.y + end.y) / 2;
+        for (const t of candidates) {
+          const x = start.x + (end.x - start.x) * t;
+          const y = start.y + (end.y - start.y) * t;
+          if (!overlapsAnyNode(x, y)) {
+            mx = x; my = y;
+            break;
+          }
+        }
+
         const chipDim = inhibitionFocus && !inhibit;
+        const showLabel = e.label && !e.noLabel;
 
         return (
           <g key={`edge-${i}`} opacity={chipDim ? 0.5 : 1}>
@@ -173,7 +209,7 @@ export default function PathwayDiagram({
               strokeDasharray={dash}
               markerEnd={marker}
             />
-            {e.label && (
+            {showLabel && (
               <g>
                 <rect
                   x={mx - chipW / 2} y={my - chipH / 2}

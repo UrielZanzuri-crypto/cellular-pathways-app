@@ -146,7 +146,7 @@ Mucopolysaccharidoses (e.g., **Hurler, Hunter syndrome**) are lysosomal-storage 
   },
 
   pathway: {
-    viewBox: [0, 0, 1100, 920],
+    viewBox: [0, 0, 1500, 880],
     // Junctions are structural, not signaling — override the default
     // 'Activated by' / 'Acts on' labels. Edges describe membership ("Tight
     // junction is part of Cell-Cell Junctions") and composition ("Cell-Cell
@@ -159,86 +159,86 @@ Mucopolysaccharidoses (e.g., **Hurler, Hunter syndrome**) are lysosomal-storage 
     },
     nodes: [
       // Tier 1 — root header
-      { id: 'root', label: 'Cell Junctions & ECM', sublabel: 'apical → basal', x: 550, y: 55, type: 'phase',
+      { id: 'root', label: 'Cell Junctions & ECM', sublabel: 'apical → basal', x: 750, y: 60, type: 'phase',
         memory: { glyph: '🏗️', char: 'Tissue scaffolding' },
         hint: 'Epithelial cells stack a hierarchy of junctions from apical (luminal) to basal (deep). The order from top to bottom is: tight → adherens → desmosomes (interspersed with the others) → gap junctions (anywhere lateral) → hemidesmosomes (basal). Below that: basement membrane and ECM.' },
 
       // Tier 2 — two big branches
-      { id: 'cellcell', label: 'Cell-Cell Junctions', sublabel: 'occluding · anchoring · communicating', x: 270, y: 165, type: 'phase',
+      { id: 'cellcell', label: 'Cell-Cell Junctions', sublabel: 'occluding · anchoring · communicating', x: 350, y: 170, type: 'phase',
         memory: { glyph: '🤝', char: 'Cell-cell handshakes' },
         hint: 'Three jobs: SEAL the paracellular space (tight), MECHANICALLY link cells (adherens, desmosomes), and CHEMICALLY/ELECTRICALLY couple them (gap).' },
-      { id: 'cellmatrix', label: 'Cell-Matrix Junctions', sublabel: 'anchor cell to ECM', x: 830, y: 165, type: 'phase',
+      { id: 'cellmatrix', label: 'Cell-Matrix Junctions', sublabel: 'anchor cell to ECM', x: 1180, y: 170, type: 'phase',
         memory: { glyph: '⚓', char: 'Cell-matrix anchor' },
         hint: 'Anchor the basal surface to the basement membrane and underlying ECM. Built around integrin receptors. Two main types: stable (hemidesmosomes) and dynamic (focal adhesions).' },
 
       // Tier 3 — Cell-cell types
-      { id: 'tj', label: 'Tight Junction', sublabel: 'zonula occludens · seal', x: 130, y: 295, type: 'receptor',
+      { id: 'tj', label: 'Tight Junction', sublabel: 'zonula occludens · seal', x: 110, y: 300, type: 'receptor',
         memory: { glyph: '🚧', char: 'Apical seal' },
         hint: 'Apical-most belt. Seals the paracellular space (no leak between cells) and acts as a "fence" separating apical and basolateral membrane domains. Critical for blood-brain barrier, gut barrier, blood-testis barrier.',
         clinical: { disorder: 'Leaky-gut hypothesis', findings: { en: 'Increased intestinal permeability has been linked to autoimmune disease, but causality is debated. Zonulin is one regulator of TJ permeability.' } } },
-      { id: 'aj', label: 'Adherens Junction', sublabel: 'zonula adherens · belt', x: 130, y: 415, type: 'receptor',
+      { id: 'aj', label: 'Adherens Junction', sublabel: 'zonula adherens · belt', x: 310, y: 300, type: 'receptor',
         memory: { glyph: '🪢', char: 'Belt of E-cad' },
         hint: 'Belt-like, just below tight junction. Mechanical anchorage between cells via the actin cytoskeleton. Core: E-cadherin (Ca²⁺-dependent, homophilic) → β-catenin → α-catenin → actin.',
         clinical: { disorder: 'Hereditary diffuse gastric cancer (CDH1 mutation)', findings: { en: 'Germline E-cadherin loss → "signet-ring" gastric carcinoma + invasive lobular breast cancer. Lifetime gastric-cancer risk so high (~70%) that prophylactic total gastrectomy is offered.' } } },
-      { id: 'ds', label: 'Desmosome', sublabel: 'macula adherens · rivets', x: 130, y: 535, type: 'receptor',
+      { id: 'ds', label: 'Desmosome', sublabel: 'macula adherens · rivets', x: 510, y: 300, type: 'receptor',
         memory: { glyph: '🔩', char: 'Skin rivets' },
         hint: 'Spot-like "rivets" that distribute mechanical stress across tissues. Especially abundant in skin and cardiac muscle. Anchored to intermediate filaments (keratin in epithelia, desmin in cardiac).',
         clinical: { disorder: 'Pemphigus vulgaris', findings: { en: 'Autoantibodies against desmoglein 3 (and sometimes 1). Flaccid blisters, oral erosions, positive Nikolsky sign. Treat with steroids, rituximab.' } } },
-      { id: 'gj', label: 'Gap Junction', sublabel: 'communicating', x: 270, y: 470, type: 'receptor',
+      { id: 'gj', label: 'Gap Junction', sublabel: 'communicating', x: 710, y: 300, type: 'receptor',
         memory: { glyph: '📞', char: 'Cytoplasm hotline' },
         hint: 'Direct cytoplasmic channels between adjacent cells. Allows ions and small molecules (<1 kDa) to pass — synchronizes cardiac muscle (electrical coupling), smooth muscle, and neurons. NOT an anchor.',
         clinical: { disorder: 'Connexin 26 deafness', findings: { en: 'Most common cause of autosomal recessive non-syndromic deafness. GJB2 (Cx26) mutations disrupt K⁺ recycling in cochlear support cells.' } } },
 
       // Tier 4 — Cell-cell proteins (downstream of junction types)
-      { id: 'tj_p', label: 'Claudin · Occludin', sublabel: '+ ZO-1 scaffold', x: 130, y: 685, type: 'messenger',
+      { id: 'tj_p', label: 'Claudin · Occludin', sublabel: '+ ZO-1 scaffold', x: 110, y: 460, type: 'messenger',
         memory: { glyph: '🔒', char: 'Claudin lock' },
         hint: 'Claudins (~24 family members) determine paracellular ion selectivity (e.g., claudin-2 makes leaky junctions in proximal tubule; claudin-16 selects Mg²⁺ in TAL). Occludin reinforces the seal. ZO-1 links them to actin inside the cell.',
         clinical: { disorder: 'Familial hypomagnesemia with hypercalciuria', findings: { en: 'Claudin-16 (paracellin-1) mutations → loss of paracellular Mg²⁺ reabsorption in thick ascending limb of Henle.' } } },
-      { id: 'aj_p', label: 'E-cadherin → Catenins', sublabel: 'Ca²⁺-dependent · → actin', x: 350, y: 720, type: 'messenger',
+      { id: 'aj_p', label: 'E-cadherin → Catenins', sublabel: 'Ca²⁺-dependent · → actin', x: 310, y: 460, type: 'messenger',
         memory: { glyph: '🪢', char: 'E-cad → β-cat → actin' },
         hint: 'E-cadherin (homophilic, Ca²⁺-dependent) binds β-catenin via its cytoplasmic tail. β-catenin binds α-catenin, which binds actin. Loss of E-cadherin → epithelial-mesenchymal transition (EMT) and invasive carcinoma. β-catenin also has a parallel role in Wnt signaling (transcription factor).',
         drugs: ['Wnt-pathway inhibitors (research)'] },
-      { id: 'ds_p', label: 'Desmoglein → IFs', sublabel: 'plakoglobin · desmoplakin · keratin', x: 130, y: 805, type: 'messenger',
+      { id: 'ds_p', label: 'Desmoglein → IFs', sublabel: '→ keratin (skin) / desmin (heart)', x: 510, y: 460, type: 'messenger',
         memory: { glyph: '🪡', char: 'Desmoglein → keratin' },
         hint: 'Desmoglein and desmocollin (cadherin family) link to intermediate filaments via plakoglobin and desmoplakin. Anchors to keratin in epithelia, desmin in cardiac muscle. Autoantibodies against desmoglein-3 cause pemphigus vulgaris.' },
-      { id: 'gj_p', label: 'Connexin → Connexon', sublabel: '6 connexins = 1 hemichannel', x: 350, y: 565, type: 'messenger',
+      { id: 'gj_p', label: 'Connexin → Connexon', sublabel: '6 connexins = 1 hemichannel', x: 710, y: 460, type: 'messenger',
         memory: { glyph: '⚪', char: '6 connexin pore' },
         hint: 'Six connexin subunits oligomerize to form one connexon (hemichannel). Two connexons (one in each cell\'s membrane) align across the gap to form a complete pore. Cx43 is the major cardiac connexin; Cx26 in cochlea; Cx32 in liver/Schwann cells.' },
 
       // Tier 5 — Cell-matrix types
-      { id: 'hd', label: 'Hemidesmosome', sublabel: 'stable BM anchor', x: 700, y: 295, type: 'receptor',
+      { id: 'hd', label: 'Hemidesmosome', sublabel: 'stable BM anchor', x: 980, y: 300, type: 'receptor',
         memory: { glyph: '⚓', char: 'Stable BM anchor' },
         hint: 'Looks like half a desmosome but anchors cell to basement membrane (not to another cell). α6β4 integrin binds laminin extracellularly; plectin and BP230 link to keratin intermediate filaments inside.',
         clinical: { disorder: 'Bullous pemphigoid', findings: { en: 'Autoantibodies against BP180 / BP230 (hemidesmosomal proteins). Tense subepidermal bullae in elderly. Less aggressive than pemphigus. Negative Nikolsky.' }, treatment: { en: 'Topical / systemic steroids.' } } },
-      { id: 'fa', label: 'Focal Adhesion', sublabel: 'dynamic ECM contact', x: 950, y: 295, type: 'receptor',
+      { id: 'fa', label: 'Focal Adhesion', sublabel: 'dynamic ECM contact', x: 1180, y: 300, type: 'receptor',
         memory: { glyph: '🦶', char: 'Migration foothold' },
         hint: 'More dynamic than hemidesmosomes. Used during migration and wound healing. Built around β1 integrins. Cytoplasmic side links to ACTIN (not intermediate filaments). FAK kinase signals inward to drive cytoskeletal remodeling and survival.' },
 
       // Tier 6 — Cell-matrix proteins
-      { id: 'hd_p', label: 'α6β4 Integrin → Laminin', sublabel: '→ keratin (IF)', x: 700, y: 415, type: 'messenger',
+      { id: 'hd_p', label: 'α6β4 Integrin → Laminin', sublabel: '→ keratin (IF)', x: 980, y: 460, type: 'messenger',
         memory: { glyph: '🩹', char: 'α6β4 ↔ laminin' },
         hint: 'α6β4 integrin is unique to hemidesmosomes. Binds laminin-332 in the basement membrane extracellularly, plectin → keratin intermediate filaments inside. Mutations cause junctional epidermolysis bullosa.' },
-      { id: 'fa_p', label: 'β1 Integrin → Talin → Actin', sublabel: 'FAK signaling', x: 950, y: 415, type: 'messenger',
+      { id: 'fa_p', label: 'β1 Integrin → Talin → Actin', sublabel: 'FAK signaling', x: 1180, y: 460, type: 'messenger',
         memory: { glyph: '🧗', char: 'β1-int + FAK climb' },
         hint: 'β1 integrins bind ECM (fibronectin most prominently, also collagen, laminin). Cytoplasmic tail recruits talin and vinculin → links to actin. FAK (focal adhesion kinase) phosphorylates downstream targets → migration, survival, proliferation. Detachment → anoikis (apoptosis).' },
 
       // Tier 7 — ECM (between cell-matrix branch and bottom)
-      { id: 'ecm', label: 'ECM', sublabel: 'extracellular matrix', x: 825, y: 540, type: 'modifier',
+      { id: 'ecm', label: 'ECM', sublabel: 'extracellular matrix', x: 1380, y: 380, type: 'modifier',
         memory: { glyph: '🕸️', char: 'Outside-cell mesh' },
         hint: 'Mesh of secreted proteins and glycans. Gives tissue mechanical properties and instructs cell behavior. Specialized regions include the basement membrane (a thin sheet of type IV collagen + laminin underneath every epithelium and endothelium).' },
 
       // Tier 8 — ECM components
-      { id: 'col', label: 'Collagen', sublabel: 'tensile strength · triple helix', x: 600, y: 700, type: 'effector',
+      { id: 'col', label: 'Collagen', sublabel: 'tensile strength · triple helix', x: 1000, y: 640, type: 'effector',
         memory: { glyph: '🏛️', char: 'Pillar collagen' },
         hint: 'Most abundant protein in the body. Triple helix of α-chains with Gly-X-Y repeats. Hydroxylation (vitamin C-dependent) stabilizes. Type I = bone/skin, II = cartilage, III = reticular, IV = basement membrane. Defective in osteogenesis imperfecta (I), Ehlers-Danlos (III/V), Alport (IV).',
         drugs: ['vitamin C (treats scurvy)'] },
-      { id: 'lam', label: 'Laminin', sublabel: 'basement membrane', x: 800, y: 700, type: 'effector',
+      { id: 'lam', label: 'Laminin', sublabel: 'basement membrane', x: 1180, y: 640, type: 'effector',
         memory: { glyph: '✚', char: 'Cross-shaped laminin' },
         hint: 'Cross-shaped glycoprotein, major non-collagen component of the basement membrane. Binds integrins (α6β4 in hemidesmosomes), type IV collagen, perlecan. Deficient in junctional epidermolysis bullosa.' },
-      { id: 'fn', label: 'Fibronectin', sublabel: 'ECM linker', x: 970, y: 700, type: 'effector',
+      { id: 'fn', label: 'Fibronectin', sublabel: 'ECM linker', x: 1360, y: 640, type: 'effector',
         memory: { glyph: '🔗', char: 'Fibronectin link' },
         hint: 'Glycoprotein that links cells (via β1 integrins) to collagen and proteoglycans. Granulation tissue is fibronectin-rich during early wound healing. Important in embryonic cell migration and tissue repair.' },
-      { id: 'gag', label: 'Proteoglycans / GAGs', sublabel: 'hydration · compressive strength', x: 825, y: 820, type: 'effector',
+      { id: 'gag', label: 'Proteoglycans / GAGs', sublabel: 'hydration · compressive strength', x: 1180, y: 780, type: 'effector',
         memory: { glyph: '💧', char: 'Water-binding gel' },
         hint: 'Glycosaminoglycan chains (heparan sulfate, chondroitin sulfate, hyaluronan) on a protein core. Highly negatively charged → bind water → tissue hydration. Why cartilage doesn\'t crush under load.',
         clinical: { disorder: 'Mucopolysaccharidoses (Hurler, Hunter)', findings: { en: 'Lysosomal-storage diseases of GAG breakdown. Coarse facies, corneal clouding (Hurler — not Hunter), hepatosplenomegaly, neurodegeneration. Hurler = α-L-iduronidase deficiency, AR. Hunter = iduronate sulfatase, X-linked.' } } }

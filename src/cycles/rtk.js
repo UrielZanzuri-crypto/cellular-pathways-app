@@ -187,7 +187,7 @@ Insulin → IRS-1 phosphorylated on tyrosines → PI3K p85 docks → PIP₃ at t
       { from: 'raf', to: 'mek', label: '+ phosphate', style: 'activate' },
       { from: 'akt', to: 'mtor', label: 'TSC1/2 ⊣', style: 'activate' },
       { from: 'mek', to: 'erk', label: '+ phosphate', style: 'activate' },
-      { from: 'erk', to: 'response', label: 'TF activation', style: 'activate' },
+      { from: 'erk', to: 'response', label: 'via TFs', style: 'activate' },
       { from: 'mtor', to: 'response', label: '↑ translation', style: 'activate' }
     ]
   },
