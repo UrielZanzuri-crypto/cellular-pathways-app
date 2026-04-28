@@ -150,52 +150,67 @@ Short prodomains. Activated by initiator caspases via direct cleavage (not induc
     nodes: [
       // ===== Tier 1 — two stimuli =====
       { id: 'fasL', label: 'Death Ligand', sublabel: 'FasL · TNF · TRAIL', x: 250, y: 60, type: 'ligand',
+        memory: { glyph: '⚔️', char: 'CTL kill-signal' },
         hint: 'Trimeric ligands secreted or membrane-bound. FasL on cytotoxic T cells / NK cells. TNF-α from macrophages in inflammation. TRAIL has a special property — kills tumor cells preferentially while sparing normal cells (active in clinical-trial agents).' },
       { id: 'stress', label: 'Cellular Stress', sublabel: 'DNA damage · GF withdrawal · hypoxia', x: 850, y: 60, type: 'ligand',
+        memory: { glyph: '⚠️', char: 'Internal alarm' },
         hint: 'Anything that drives the BH3-only proteins past threshold: DNA damage (ATM/ATR → p53), growth-factor withdrawal (Akt falls → BAD active), ER stress (CHOP transcription), hypoxia, oxidative stress, oncogenic stress (Myc → ARF → p53).' },
 
       // ===== Tier 2 — receptors / sensors =====
       { id: 'fas', label: 'Death Receptor', sublabel: 'Fas / TNFR / TRAIL-R', x: 250, y: 175, type: 'receptor',
+        memory: { glyph: '💀', char: 'Death receptor' },
         hint: 'Single-transmembrane receptors with cytoplasmic "death domains" (DD). On ligand-induced trimerization, the DDs cluster and recruit FADD via DD-DD interactions.',
         clinical: { disorder: 'Autoimmune Lymphoproliferative Syndrome (ALPS)', findings: { en: 'Germline FAS, FASL, or caspase-10 mutations → defective lymphocyte apoptosis → lymphadenopathy + hepatosplenomegaly + autoimmune cytopenias + elevated CD4⁻CD8⁻ "double-negative" TCRαβ⁺ T cells.' } } },
       { id: 'p53', label: 'p53 stabilized', sublabel: 'guardian of the genome', x: 700, y: 175, type: 'modifier',
+        memory: { glyph: '🛡️', char: 'Genome guardian' },
         hint: 'DNA damage → ATM/ATR → phosphorylates p53 → escapes MDM2 degradation → accumulates. Drives transcription of pro-apoptotic targets (PUMA, NOXA, BAX) when damage is irreparable. >50% of cancers have p53 mutations, which is why they are chemo-resistant.' },
       { id: 'akt_off', label: 'Akt activity ↓', sublabel: 'GF-withdrawal sensor', x: 970, y: 175, type: 'modifier',
+        memory: { glyph: '🪫', char: 'Survival drained' },
         hint: 'Akt phosphorylates BAD on Ser-136, sequestering it via 14-3-3. When growth factors disappear → Akt activity falls → BAD dephosphorylated → BAD active → binds Bcl-2/Bcl-xL → BAX/BAK released. The biochemical link between "no growth factor" and "die now."' },
 
       // ===== Tier 3 — adaptor + sensors =====
       { id: 'fadd', label: 'FADD', sublabel: 'death-domain adapter', x: 250, y: 290, type: 'adapter',
+        memory: { glyph: '🧲', char: 'DD adapter' },
         hint: 'Fas-Associated Death Domain protein. Binds clustered death domains via its own DD. Recruits pro-caspase-8 via DED-DED interactions. The DISC = receptor + FADD + multiple pro-caspase-8 molecules clustered together.' },
       { id: 'bh3', label: 'BH3-only proteins', sublabel: 'PUMA · NOXA · Bim · BAD · Bid', x: 850, y: 290, type: 'modifier',
+        memory: { glyph: '🚨', char: 'BH3-only sensors' },
         hint: 'Sensors of cellular stress. PUMA and NOXA induced by p53 (DNA damage). Bim released from microtubules when GF withdrawn. BAD activated when Akt signal falls. Bid cleaved by caspase-8 (extrinsic→intrinsic crosstalk). Each binds and neutralizes anti-apoptotic Bcl-2 / Bcl-xL.' },
 
       // ===== Tier 4 — Bcl-2 rheostat =====
       { id: 'bcl2', label: 'Bcl-2 / Bcl-xL', sublabel: 'anti-apoptotic guardians', x: 700, y: 415, type: 'modifier',
+        memory: { glyph: '🚪', char: 'Mito bouncer (Bcl-2)' },
         hint: 'Sit at the outer mitochondrial membrane. Sequester pro-apoptotic BAX/BAK and BH3-only proteins, keeping the cell alive. Cancer cells often overexpress these to evade apoptosis.',
         clinical: { disorder: 'Follicular lymphoma t(14;18)', findings: { en: 'BCL2 placed under control of the IgH enhancer → constitutive Bcl-2 overexpression → cells accumulate (don\'t die) rather than rapidly dividing. Most common low-grade non-Hodgkin lymphoma.' }, treatment: { en: 'Venetoclax (BH3-mimetic, displaces BAX/BAK from Bcl-2). Also active in CLL and AML.' } },
         drugs: ['venetoclax', 'navitoclax (research)'] },
       { id: 'bax', label: 'BAX / BAK', sublabel: 'pore-formers', x: 1000, y: 415, type: 'enzyme',
+        memory: { glyph: '🕳️', char: 'Pore-former BAX' },
         hint: 'When freed from Bcl-2 sequestration, oligomerize in the outer mitochondrial membrane and form pores. BAX is normally cytosolic; BAK is constitutively mitochondrial. Both required (compensate somewhat in single knockouts).' },
 
       // ===== Tier 5 — caspase-8 (extrinsic) and cyt c release (intrinsic) =====
       { id: 'casp8', label: 'Caspase 8', sublabel: 'initiator (DED)', x: 250, y: 415, type: 'enzyme',
+        memory: { glyph: '✂️', char: 'Casp-8 cleaver' },
         hint: 'Initiator caspase. Activated by induced proximity at the DISC. Long DED-containing prodomain lets it dock on FADD. Once dimerized, autocleaves to active form. Cleaves caspase-3 directly AND cleaves Bid → tBid → amplifies via mitochondria (especially important in type-II cells like hepatocytes).',
         clinical: { disorder: 'Caspase-8 deficiency', findings: { en: 'Combined immunodeficiency + ALPS-like features. Caspase-8 has roles beyond apoptosis (lymphocyte activation).' } } },
       { id: 'cytc', label: 'Cytochrome c released', sublabel: 'MOMP', x: 850, y: 540, type: 'messenger',
+        memory: { glyph: '💧', char: 'Cyt c leaks' },
         hint: 'Cytochrome c normally lives in the mitochondrial intermembrane space participating in electron transport. BAX/BAK pores release it into the cytoplasm — a unique "this should never be in the cytosol" signal that triggers apoptosome assembly.' },
 
       // ===== Tier 6 — apoptosome → caspase 9 =====
       { id: 'apaf', label: 'Apoptosome', sublabel: 'Apaf-1 + cyt c + dATP', x: 850, y: 660, type: 'enzyme',
+        memory: { glyph: '🎡', char: 'Apoptosome wheel' },
         hint: 'Cytochrome c binds Apaf-1 (Apoptotic Protease Activating Factor 1) → Apaf-1 unfolds and oligomerizes into a 7-spoke wheel → recruits pro-caspase-9 via CARD-CARD interactions → caspase-9 dimerizes and activates by induced proximity.' },
       { id: 'casp9', label: 'Caspase 9', sublabel: 'initiator (CARD)', x: 850, y: 770, type: 'enzyme',
+        memory: { glyph: '✂️', char: 'Casp-9 cleaver' },
         hint: 'Initiator caspase of the intrinsic pathway. Once activated, cleaves and activates caspase-3 (and -7). Inhibited by IAPs (inhibitor of apoptosis proteins) — but those are themselves antagonized by SMAC/DIABLO, also released from mitochondria during MOMP.' },
 
       // ===== Tier 7 — convergence on caspase 3 =====
       { id: 'casp3', label: 'Caspase 3', sublabel: 'executioner', x: 550, y: 805, type: 'enzyme',
+        memory: { glyph: '🪚', char: 'Executioner casp-3' },
         hint: 'The convergence point. Both pathways feed in here. Cleaves >100 cellular substrates: ICAD (releases DNA endonuclease CAD), PARP (energy conservation), lamins (nuclear envelope), gelsolin (cytoskeleton), ROCK1 (membrane blebbing).' },
 
       // ===== Tier 8 — final output =====
       { id: 'death', label: 'DNA Fragmentation · Cell Death', sublabel: 'apoptotic bodies → phagocytosis · NO inflammation', x: 550, y: 905, type: 'output',
+        memory: { glyph: '🪦', char: 'Clean cell death' },
         hint: 'Final morphologic features: cell shrinks (not swells), chromatin condenses (pyknosis) and fragments (karyorrhexis, DNA ladder), membrane blebs, phosphatidylserine flips to outer leaflet ("eat me" signal), apoptotic bodies are engulfed by macrophages. NO inflammation — the defining contrast with necrosis.' }
     ],
     edges: [

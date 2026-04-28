@@ -73,6 +73,11 @@ body {
   box-shadow: 0 4px 10px -4px oklch(55% 0.18 25 / 0.55);
   flex-shrink: 0;
 }
+/* Cascade-specific: deep teal/blue gradient for signaling distinction */
+.logo__mark--cascade {
+  background: linear-gradient(140deg, oklch(60% 0.16 220), oklch(45% 0.18 250));
+  box-shadow: 0 4px 12px -4px oklch(45% 0.18 250 / 0.6);
+}
 .logo__title { font-weight: 800; letter-spacing: -0.01em; font-size: 15px; }
 .logo__sub { font-size: 11px; color: var(--ink-soft); font-weight: 600; }
 

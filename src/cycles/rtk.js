@@ -113,53 +113,66 @@ Insulin → IRS-1 phosphorylated on tyrosines → PI3K p85 docks → PIP₃ at t
     nodes: [
       // Tier 1 — ligand
       { id: 'gf', label: 'Growth Factor', sublabel: 'EGF · PDGF · IGF · insulin', x: 550, y: 60, type: 'ligand',
+        memory: { glyph: '📨', char: 'Growth-factor messenger' },
         hint: 'Polypeptide growth factor. Most are dimeric (e.g., PDGF) — one ligand binds two receptor monomers and pulls them together. EGF is monomeric but binds one face of a receptor that then meets a partner.' },
 
       // Tier 2 — receptor
       { id: 'rtk', label: 'RTK Dimer', sublabel: 'ligand-induced dimerization', x: 550, y: 175, type: 'receptor',
+        memory: { glyph: '👯', char: 'Twin receptors' },
         hint: 'Single-transmembrane receptor with a Tyr-kinase domain on the cytoplasmic face. Ligand binding pulls two monomers together; the kinase domains can now reach each other.',
         clinical: { disorder: 'HER2 amplification (breast cancer)', findings: { en: 'Overexpressed HER2 receptors crowd the membrane and dimerize without ligand → constitutive growth signal. ~20% of breast cancers. Aggressive but treatable.' }, treatment: { en: 'Trastuzumab (anti-HER2 monoclonal antibody), pertuzumab, T-DM1 (antibody-drug conjugate).' } } },
 
       // Tier 3
       { id: 'auto', label: 'Autophosphorylation', sublabel: 'trans-phospho on Tyr residues', x: 550, y: 290, type: 'enzyme',
+        memory: { glyph: '🔥', char: 'Phospho-spark' },
         hint: 'Each kinase domain phosphorylates Tyr residues on the OTHER monomer\'s C-terminal tail. The resulting phospho-tyrosines are docking sites for SH2-domain proteins.' },
 
       // Tier 4 — adapter / lipid kinase (split here)
       { id: 'grb2', label: 'GRB2 / SOS', sublabel: 'adapter + Ras-GEF', x: 285, y: 410, type: 'adapter',
+        memory: { glyph: '🔌', char: 'GRB2 plug' },
         hint: 'GRB2\'s SH2 binds phospho-Tyr on the receptor; its SH3 domains recruit SOS (Son of Sevenless), which is a guanine-nucleotide exchange factor for Ras (kicks off GDP, lets GTP load on).' },
       { id: 'pi3k', label: 'PI3K', sublabel: 'lipid kinase', x: 815, y: 410, type: 'enzyme',
+        memory: { glyph: '🪄', char: 'Lipid wand' },
         hint: 'Class IA PI3K = p85 (regulatory, has SH2) + p110 (catalytic). p85 docks on the receptor, p110 phosphorylates membrane PIP₂ → PIP₃.',
         drugs: ['idelalisib (PI3Kδ — CLL)', 'alpelisib (PI3Kα — breast cancer with PIK3CA mutation)'] },
 
       // Tier 5
       { id: 'ras', label: 'Ras-GTP', sublabel: 'small GTPase', x: 285, y: 525, type: 'messenger',
+        memory: { glyph: '🚦', char: 'Ras switch' },
         hint: 'Membrane-anchored small G-protein. Active when GTP-bound. Mutations at codons 12, 13, 61 prevent GTP hydrolysis → stuck "on" → most common oncogene in human cancer.',
         clinical: { disorder: 'KRAS-mutant cancer', findings: { en: 'KRAS G12D/G12V/G12C mutations: ~90% pancreatic ductal adenocarcinoma, ~50% colorectal cancer, ~30% lung adenocarcinoma. Long considered "undruggable".' }, treatment: { en: 'Sotorasib and adagrasib (KRAS G12C inhibitors) — first KRAS-targeted approvals (2021).' } } },
       { id: 'pip3', label: 'PIP₃', sublabel: 'membrane lipid messenger', x: 815, y: 525, type: 'messenger',
+        memory: { glyph: '🧲', char: 'PH-domain magnet' },
         hint: 'Phosphatidylinositol-3,4,5-trisphosphate. Recruits PH-domain proteins (Akt, PDK1) to the membrane. Reversed by PTEN (a 3-phosphatase).',
         clinical: { disorder: 'PTEN loss', findings: { en: 'PTEN reverses PIP₃ → PIP₂. Loss of PTEN = constitutive PIP₃ = constitutive Akt. Cowden syndrome (germline): hamartomas, breast/thyroid/uterine cancer. PTEN is one of the most frequently lost tumor suppressors in human cancer.' } } },
 
       // Tier 6
       { id: 'raf', label: 'Raf', sublabel: 'MAPKKK', x: 285, y: 640, type: 'enzyme',
+        memory: { glyph: '🪓', char: 'Raf chopper' },
         hint: 'Recruited to the membrane and activated by Ras-GTP. A Ser/Thr kinase. Three isoforms: A-Raf, B-Raf, C-Raf. BRAF V600E is the dominant driver in ~50% of melanomas.',
         drugs: ['vemurafenib, dabrafenib (BRAF V600E inhibitors)'] },
       { id: 'akt', label: 'Akt / PKB', sublabel: 'Ser/Thr kinase', x: 815, y: 640, type: 'enzyme',
+        memory: { glyph: '🛡️', char: 'Survival shield' },
         hint: 'Recruited to PIP₃ via its PH domain. Phosphorylated on Thr-308 by PDK1 and on Ser-473 by mTORC2. Once active, drives survival (inhibits BAD, FOXO, pro-caspase-9) and growth (activates mTORC1).' },
 
       // Tier 7
       { id: 'mek', label: 'MEK', sublabel: 'MAPKK', x: 285, y: 750, type: 'enzyme',
+        memory: { glyph: '⚙️', char: 'MEK gear' },
         hint: 'Dual-specificity kinase (phosphorylates ERK on both Thr and Tyr in its activation loop). Targeted by trametinib, used in combination with BRAF inhibitors for melanoma.',
         drugs: ['trametinib, cobimetinib (MEK inhibitors)'] },
       { id: 'mtor', label: 'mTORC1', sublabel: 'translation + growth', x: 815, y: 750, type: 'enzyme',
+        memory: { glyph: '🏗️', char: 'Builder mTOR' },
         hint: 'Master regulator of protein synthesis. Phosphorylates S6K (ribosomal) and 4E-BP1 (cap-dependent translation). Activated by Akt (via TSC1/2 inactivation) and by amino acids.',
         drugs: ['rapamycin (sirolimus)', 'everolimus', 'temsirolimus'] },
 
       // Tier 8
       { id: 'erk', label: 'ERK', sublabel: 'MAPK', x: 285, y: 855, type: 'effector',
+        memory: { glyph: '🚀', char: 'ERK rocket → nucleus' },
         hint: 'Extracellular-signal-regulated kinase. Phosphorylated by MEK on TEY motif. Translocates to nucleus and phosphorylates Elk-1, c-Myc, c-Fos → cyclin D transcription → S-phase entry.' },
 
       // Tier 9 — output
       { id: 'response', label: 'Proliferation · Survival · Growth', sublabel: 'cell cycle entry · ↓apoptosis · ↑translation', x: 550, y: 880, type: 'output',
+        memory: { glyph: '🎯', char: 'Grow + survive' },
         hint: 'Two arms converge on the cell\'s fate. ERK pushes cell-cycle entry (cyclin D transcription). Akt blocks apoptosis (BAD, FOXO, caspase-9 phosphorylation) and drives growth (mTORC1 → ↑translation).' }
     ],
     edges: [

@@ -1,6 +1,8 @@
-# Cellular Pathways — Active Recall
+# Cascade — Cellular Pathways
 
-Interactive, exam-realistic learning app for the five most-tested cellular pathways in medical school. Built around evidence-based memory techniques (active recall + spaced repetition + dual coding) and designed to share the same proven format as `biochem-app`.
+Interactive, exam-realistic learning app for the five most-tested cellular pathways in medical school. Built around evidence-based memory techniques — active recall, spaced repetition, dual coding, and **memory hooks** (metaphorical character mappings for every node).
+
+Sister app to `biochem-app` (Mnemonica), sharing the same design system and SRS engine, but reskinned around signaling-pathway pedagogy.
 
 ## What's inside
 
@@ -41,19 +43,31 @@ gh repo create cellular-pathways-app --public --source=. --remote=origin --push
 
 The app exposes the same five-tab learning loop as `biochem-app`, tuned for signaling pathways:
 
-1. **Explore** — interactive map of the pathway. Click any node to see its hint, what activates it, what it acts on, and any clinical correlate.
+1. **Explore** — interactive map of the pathway. Click any node to see its hint, its **memory hook** (metaphorical character), what activates it, what it acts on, and any clinical correlate.
 2. **Integration** — how this pathway crosstalks with others (e.g. RTK → cyclin D → Cell Cycle, or p53 → BAX → Apoptosis).
 3. **Test** — SRS-scheduled multiple-choice questions. Cards you fail come back sooner; cards you ace get spaced further out.
 4. **Recall** — drag-and-drop active recall mode. The map is rendered with 4–6 random nodes occluded as `?`. You drag the right name onto each `?`. Wrong drops shake and stay in the heap; correct drops snap with a check mark.
 5. **Big Picture** — distilled summary table of the highest-yield facts.
 6. **Deep Dive** — long-form pedagogy cards explaining the "why" behind the diagram. Read these once per pathway after your first Explore pass.
 
+### The four highlight layers (left rail)
+
+These are signaling-specific overlays that ADD information to the base diagram. Toggle them on/off independently:
+
+- **℞ Drug targets** — pink badge corner on every node that has a known drug target (β-blockers, KRAS G12C inhibitors, BH3 mimetics, etc.). Useful right before pharmacology exams.
+- **✚ Clinical** — red medical-cross corner on every node tied to a disease (cholera toxin → Gαs, HPV E7 → Rb, t(14;18) → Bcl-2). Fast pattern recognition for clinical vignettes.
+- **⊣ Inhibition focus** — emphasizes the negative-regulation arrows (Bcl-2 ⊣ BAX, p21 ⊣ CDK4/6, Gαi ⊣ AC). Activator arrows fade so the inhibitory wiring jumps out.
+- **🧠 Memory hooks** — replaces every node label with a metaphorical character (Bcl-2 → "🚪 Mito bouncer", p53 → "🛡️ Genome guardian", Gαs → "🟢 Green light", BAX → "🕳️ Pore-former"). The diagram becomes a story instead of a list of acronyms.
+
+Memory hooks also appear automatically in the right-side hint card whenever you click a node — even with the layer off — so you build the metaphor → mechanism association passively as you explore.
+
 **Suggested learning loop per pathway:**
-- First pass: read **Overview**, walk through **Explore** clicking each node.
-- Second pass: read **Deep Dive** cards (4 per pathway).
-- Third pass: do **Recall** until ≥ 90% accuracy on a round.
-- Fourth pass: do **Test** until SRS schedules everything > 7 days out.
-- Final review: **Big Picture** before exam.
+- First pass: read **Overview**, walk through **Explore** clicking each node. Memory hook is on every card.
+- Second pass: turn on the **🧠 Memory hooks** layer and re-walk the diagram as a story.
+- Third pass: read **Deep Dive** cards (4 per pathway).
+- Fourth pass: do **Recall** until ≥ 90% accuracy on a round.
+- Fifth pass: do **Test** until SRS schedules everything > 7 days out.
+- Final review: **Big Picture** + **℞ Drugs** + **✚ Clinical** layers on, before exam.
 
 ---
 

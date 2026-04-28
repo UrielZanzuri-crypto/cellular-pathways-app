@@ -133,49 +133,64 @@ ATM and ATR phosphorylate p53 on Ser-15. They also phosphorylate MDM2, weakening
     nodes: [
       // Tier 1 — phase headers (top row, as scaffolding — not part of recall)
       { id: 'g1', label: 'G1 Phase', sublabel: 'growth · prepare for S', x: 150, y: 60, type: 'phase',
+        memory: { glyph: '🚪', char: 'Decision room' },
         hint: 'First gap phase. The cell decides whether to commit to division at the restriction point — past that point, division proceeds independently of further growth-factor signals. Most cells in G0 (quiescence) re-enter the cycle here.' },
       { id: 's', label: 'S Phase', sublabel: 'DNA replication', x: 400, y: 60, type: 'phase',
+        memory: { glyph: '🧬', char: 'DNA copy room' },
         hint: 'DNA is replicated exactly once. Each chromosome now has two sister chromatids joined at the centromere. Origins fire in a defined temporal order — euchromatin first, heterochromatin last.' },
       { id: 'g2', label: 'G2 Phase', sublabel: 'verify replication', x: 650, y: 60, type: 'phase',
+        memory: { glyph: '🔍', char: 'Inspector room' },
         hint: 'Second gap phase. The cell verifies DNA was replicated correctly and prepares mitotic machinery (centrosome duplication, condensin assembly, spindle precursors).' },
       { id: 'm', label: 'M Phase', sublabel: 'mitosis + cytokinesis', x: 900, y: 60, type: 'phase',
+        memory: { glyph: '✂️', char: 'Splitter room' },
         hint: 'Mitosis (PMAT — prophase, metaphase, anaphase, telophase) followed by cytokinesis. Two daughter cells emerge, each with a 2N genome. Chromosomes condense, nuclear envelope breaks down, sisters segregate to opposite poles.' },
 
       // Tier 2 — cyclin-CDK pairs
       { id: 'cycD', label: 'Cyclin D / CDK4-6', sublabel: 'early G1 · GF-responsive', x: 150, y: 195, type: 'enzyme',
+        memory: { glyph: '🟢', char: 'Go signal (early)' },
         hint: 'First cyclin to rise. Induced by growth-factor signals (ERK → c-Myc → cyclin D transcription). Phosphorylates Rb, beginning E2F release. Levels track external mitogenic input minute-to-minute.',
         clinical: { disorder: 'Mantle-cell lymphoma (cyclin D1 amplification)', findings: { en: 't(11;14) translocation puts CCND1 (cyclin D1) under IgH enhancer → constitutive cyclin D1 overexpression. Aggressive B-cell lymphoma.' } },
         drugs: ['palbociclib, ribociclib, abemaciclib (CDK4/6 inhibitors — HR+ breast cancer)'] },
       { id: 'cycE', label: 'Cyclin E / CDK2', sublabel: 'late G1 → S transition', x: 400, y: 195, type: 'enzyme',
+        memory: { glyph: '🚪', char: 'S-door opener' },
         hint: 'Drives the G1→S transition. Itself an E2F target gene → positive-feedback loop with Rb phosphorylation. Hyperphosphorylates Rb, fully releasing E2F.' },
       { id: 'cycA', label: 'Cyclin A / CDK2', sublabel: 'S → G2', x: 650, y: 195, type: 'enzyme',
+        memory: { glyph: '⚙️', char: 'All-purpose A' },
         hint: 'Active during S and G2. Required for ongoing DNA replication (phosphorylates origin recognition complex components) and for entry into mitosis. Switches partners from CDK2 to CDK1 in G2.' },
       { id: 'cycB', label: 'Cyclin B / CDK1', sublabel: 'M-phase MPF', x: 900, y: 195, type: 'enzyme',
+        memory: { glyph: '💥', char: 'Big-bang B (mitosis)' },
         hint: 'Maturation-Promoting Factor. Triggers nuclear envelope breakdown, chromosome condensation, spindle assembly. Destroyed by APC/C at metaphase-anaphase transition → CDK1 inactivates → mitotic exit.' },
 
       // Tier 3 — Rb / E2F switch (left column, downstream of cyclin D)
       { id: 'rb', label: 'Rb phosphorylated', sublabel: 'tumor suppressor', x: 150, y: 345, type: 'modifier',
+        memory: { glyph: '🚧', char: 'Brake (Rb)' },
         hint: 'Retinoblastoma protein. When hypo-phosphorylated, holds E2F captive. Cyclin D/CDK4-6 mono-phosphorylates Rb → partial E2F release. Cyclin E/CDK2 then hyperphosphorylates Rb → full E2F release. Knudson "two-hit" hypothesis: both alleles must be lost for retinoblastoma.',
         clinical: { disorder: 'Retinoblastoma (RB1 biallelic loss)', findings: { en: 'White pupillary reflex (leukocoria), strabismus in young children. Hereditary form: also predisposes to osteosarcoma. HPV E7 binds and inactivates Rb in cervical cancer (a "viral mimic" of RB1 loss).' } } },
       { id: 'e2f', label: 'E2F released', sublabel: 'transcription factor', x: 150, y: 460, type: 'effector',
+        memory: { glyph: '📜', char: 'S-gene scribe' },
         hint: 'Family of transcription factors (E2F1-8). When freed from Rb, drives expression of S-phase genes: DNA polymerase α, thymidine kinase, DHFR, cyclin E (positive feedback), MCM helicase components, dNTP synthesis enzymes.' },
 
       // Tier 4 — S-phase entry
       { id: 'sentry', label: 'S-phase entry', sublabel: 'committed to replicate', x: 400, y: 460, type: 'effector',
+        memory: { glyph: '🚀', char: 'Past the point of no return' },
         hint: 'Past the restriction point — the cell is now committed to dividing regardless of further growth-factor signals. DNA polymerases initiate at origins of replication. dNTP pools must be sufficient.' },
 
       // Tier 5 — DNA-damage path (right column)
       { id: 'damage', label: 'DNA Damage', sublabel: 'DSBs · stalled forks', x: 750, y: 345, type: 'ligand',
+        memory: { glyph: '⚠️', char: 'DNA alarm' },
         hint: 'Double-strand breaks (DSBs) detected by ATM. Single-strand damage / stalled replication forks detected by ATR. Both kinases phosphorylate p53 on Ser-15 and concurrently weaken MDM2\'s grip on p53.' },
       { id: 'p53', label: 'p53 activated', sublabel: 'guardian of the genome', x: 750, y: 460, type: 'modifier',
+        memory: { glyph: '🛡️', char: 'Genome guardian' },
         hint: 'Most-mutated tumor suppressor in human cancer (>50%). Stabilized when phosphorylated by ATM/ATR (escapes MDM2-mediated degradation). Drives p21, GADD45, MDM2 (negative feedback), and BAX/PUMA (pro-apoptotic) transcription.',
         clinical: { disorder: 'Li-Fraumeni syndrome (germline TP53 mutation)', findings: { en: 'Early-onset sarcomas, breast cancer, brain tumors, leukemia, adrenocortical carcinoma. Most p53 mutations are dominant-negative missense in the DNA-binding domain (codons 175/245/248/249/273/282).' } },
         drugs: ['nutlins (MDM2 inhibitors — restore p53)'] },
       { id: 'p21', label: 'p21 (CKI)', sublabel: 'CDK inhibitor', x: 525, y: 575, type: 'modifier',
+        memory: { glyph: '⛔', char: 'CDK stop sign' },
         hint: 'Cyclin-dependent kinase inhibitor (CIP/KIP family — also includes p27, p57). Binds and shuts down cyclin–CDK complexes (D/CDK4-6, E/CDK2 most relevant). Halts the cycle so DNA can be repaired or apoptosis triggered.' },
 
       // Tier 6 — outcome
       { id: 'arrest', label: 'G1/S Checkpoint Arrest', sublabel: 'or → apoptosis if irreparable', x: 525, y: 715, type: 'output',
+        memory: { glyph: '🛑', char: 'Pause or perish' },
         hint: 'If damage is repairable → arrest, fix, resume. If irreparable → p53 also drives BAX/PUMA → mitochondrial apoptosis (intrinsic pathway). Why chemotherapy works: p53-functional cancer cells apoptose in response to drug-induced damage.' }
     ],
     edges: [

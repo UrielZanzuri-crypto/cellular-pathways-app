@@ -60,7 +60,12 @@ export default function PathwayDiagram({
   hiddenIds = new Set(),
   revealedIds = {},
   hoverId = null,
-  shakeId = null
+  shakeId = null,
+  // Layer flags from App.jsx — each adds an additive overlay to the diagram.
+  showDrugs = false,
+  showClinical = false,
+  inhibitionFocus = false,
+  memoryMode = false
 }) {
   const path = cycle.pathway;
   if (!path) {
@@ -80,8 +85,14 @@ export default function PathwayDiagram({
         <marker id="pathArrowAct" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
         </marker>
+        <marker id="pathArrowActDim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#cbd5e1" />
+        </marker>
         <marker id="pathArrowInh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
           <path d="M 1 1 L 1 9" stroke="#dc2626" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+        </marker>
+        <marker id="pathArrowInhBold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" orient="auto">
+          <path d="M 1 1 L 1 9" stroke="#b91c1c" strokeWidth="3" fill="none" strokeLinecap="round" />
         </marker>
       </defs>
 
@@ -103,8 +114,25 @@ export default function PathwayDiagram({
         const end = rectEdgePoint(b.x, b.y, bw, bh, a.x, a.y);
 
         const inhibit = e.style === 'inhibit';
-        const stroke = inhibit ? '#dc2626' : '#94a3b8';
-        const dash = inhibit ? '5 4' : (e.dashed ? '4 4' : 'none');
+
+        // Default styling
+        let stroke = inhibit ? '#dc2626' : '#94a3b8';
+        let strokeWidth = 1.8;
+        let dash = inhibit ? '5 4' : (e.dashed ? '4 4' : 'none');
+        let marker = inhibit ? 'url(#pathArrowInh)' : 'url(#pathArrowAct)';
+
+        // Inhibition-focus layer: dim activator edges, bolden inhibitor edges
+        if (inhibitionFocus) {
+          if (inhibit) {
+            stroke = '#b91c1c';
+            strokeWidth = 2.6;
+            marker = 'url(#pathArrowInhBold)';
+          } else {
+            stroke = '#cbd5e1';
+            strokeWidth = 1.2;
+            marker = 'url(#pathArrowActDim)';
+          }
+        }
 
         // Label chip sits at the midpoint, slightly nudged perpendicular to
         // the line so it doesn't sit on the line itself. The chip is solid
@@ -115,16 +143,17 @@ export default function PathwayDiagram({
         const labelLen = (e.label || '').length;
         const chipW = Math.max(40, labelLen * 6.6 + 14);
         const chipH = 18;
+        const chipDim = inhibitionFocus && !inhibit;
 
         return (
-          <g key={`edge-${i}`}>
+          <g key={`edge-${i}`} opacity={chipDim ? 0.5 : 1}>
             <line
               x1={start.x} y1={start.y}
               x2={end.x}   y2={end.y}
               stroke={stroke}
-              strokeWidth="1.8"
+              strokeWidth={strokeWidth}
               strokeDasharray={dash}
-              markerEnd={inhibit ? 'url(#pathArrowInh)' : 'url(#pathArrowAct)'}
+              markerEnd={marker}
             />
             {e.label && (
               <g>
@@ -212,27 +241,66 @@ export default function PathwayDiagram({
                   {glyph}
                 </text>
 
-                {/* Primary label */}
-                <text
-                  x={n.x} y={n.sublabel ? n.y - 2 : n.y + 4} textAnchor="middle"
-                  style={{
-                    fontSize: 12.5, fontWeight: 800, fill: style.text,
-                    letterSpacing: -0.15
-                  }}
-                >
-                  {n.label}
-                </text>
+                {memoryMode && n.memory ? (
+                  <>
+                    {/* Memory mode: big emoji glyph + character name */}
+                    <text
+                      x={n.x} y={n.y - 4} textAnchor="middle"
+                      style={{ fontSize: 20 }}
+                    >
+                      {n.memory.glyph}
+                    </text>
+                    <text
+                      x={n.x} y={n.y + 14} textAnchor="middle"
+                      style={{
+                        fontSize: 10.5, fontWeight: 700, fill: style.text,
+                        letterSpacing: -0.1
+                      }}
+                    >
+                      {n.memory.char}
+                    </text>
+                  </>
+                ) : (
+                  <>
+                    {/* Default: abbreviation + sublabel */}
+                    <text
+                      x={n.x} y={n.sublabel ? n.y - 2 : n.y + 4} textAnchor="middle"
+                      style={{
+                        fontSize: 12.5, fontWeight: 800, fill: style.text,
+                        letterSpacing: -0.15
+                      }}
+                    >
+                      {n.label}
+                    </text>
+                    {n.sublabel && (
+                      <text
+                        x={n.x} y={n.y + 13} textAnchor="middle"
+                        style={{
+                          fontSize: 9.5, fontWeight: 600, fill: style.text, opacity: 0.7
+                        }}
+                      >
+                        {n.sublabel}
+                      </text>
+                    )}
+                  </>
+                )}
 
-                {/* Secondary label, INSIDE the node */}
-                {n.sublabel && (
-                  <text
-                    x={n.x} y={n.y + 13} textAnchor="middle"
-                    style={{
-                      fontSize: 9.5, fontWeight: 600, fill: style.text, opacity: 0.7
-                    }}
-                  >
-                    {n.sublabel}
-                  </text>
+                {/* Drug-target badge (top-right, inside) */}
+                {showDrugs && n.drugs && n.drugs.length > 0 && (
+                  <g>
+                    <circle cx={n.x + w / 2 - 10} cy={n.y - h / 2 + 10} r="9" fill="#db2777" />
+                    <text x={n.x + w / 2 - 10} y={n.y - h / 2 + 14} textAnchor="middle"
+                          style={{ fontSize: 11, fontWeight: 800, fill: '#fff', fontFamily: "'Fraunces', serif" }}>℞</text>
+                  </g>
+                )}
+
+                {/* Clinical-correlate badge (bottom-right, inside) */}
+                {showClinical && n.clinical && (
+                  <g>
+                    <circle cx={n.x + w / 2 - 10} cy={n.y + h / 2 - 10} r="9" fill="#dc2626" />
+                    <text x={n.x + w / 2 - 10} y={n.y + h / 2 - 6} textAnchor="middle"
+                          style={{ fontSize: 12, fontWeight: 800, fill: '#fff' }}>+</text>
+                  </g>
                 )}
               </>
             )}

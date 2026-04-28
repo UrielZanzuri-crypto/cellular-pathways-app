@@ -122,52 +122,68 @@ The number "2" in α2/M2/D2 = "Gi" (the second one alphabetically after Gs). The
     nodes: [
       // Tier 1 — ligand
       { id: 'ligand', label: 'Ligand', sublabel: 'hormone / neurotransmitter', x: 550, y: 60, type: 'ligand',
+        memory: { glyph: '📨', char: 'Messenger' },
         hint: 'First messenger. Hydrophilic peptides and catecholamines cannot cross the lipid bilayer — they must signal through a surface receptor. Examples: epinephrine (β-adrenergic), glucagon (Gs), acetylcholine (M1-M5), histamine, vasopressin.' },
 
       // Tier 2 — receptor
       { id: 'gpcr', label: 'GPCR', sublabel: '7-transmembrane', x: 550, y: 175, type: 'receptor',
+        memory: { glyph: '📡', char: '7-tower antenna' },
         hint: 'Seven α-helices crossing the membrane. Ligand binds the extracellular face → conformational change exposes a cytoplasmic pocket that acts as a GEF on the heterotrimeric G-protein, exchanging GDP → GTP on the α-subunit.',
         clinical: { disorder: 'Cholera toxin', findings: { en: 'ADP-ribosylates Gαs and locks it in the GTP-bound state → constitutive cAMP in intestinal epithelium → massive Cl⁻/H₂O secretion → rice-water diarrhea.' }, treatment: { en: 'Aggressive oral rehydration with WHO ORS solution (glucose + Na drives co-transport).' } } },
 
       // Tier 3 — three α-subunit classes
       { id: 'gs', label: 'Gαs', sublabel: 'stimulatory', x: 200, y: 295, type: 'gprotein',
+        memory: { glyph: '🟢', char: 'Green light' },
         hint: 'Stimulatory α-subunit. Activates adenylate cyclase. Coupled by β1, β2, β3, V2, D1, glucagon, TSH, ACTH, PTH, calcitonin.',
         drugs: ['β-agonists (albuterol)', 'glucagon', 'forskolin (research)'] },
       { id: 'gi', label: 'Gαi', sublabel: 'inhibitory', x: 550, y: 295, type: 'gprotein',
+        memory: { glyph: '🛑', char: 'Red light' },
         hint: 'Inhibitory α-subunit. Inhibits adenylate cyclase. Coupled by α2-adrenergic, M2 muscarinic, μ/δ/κ opioid, D2 dopamine, somatostatin, 5-HT1.',
         clinical: { disorder: 'Pertussis toxin', findings: { en: 'ADP-ribosylates Gαi and prevents GDP→GTP exchange → loss of inhibitory tone → exaggerated Gs activity → whooping cough physiology, lymphocytosis.' } } },
       { id: 'gq', label: 'Gαq', sublabel: 'PLC pathway', x: 900, y: 295, type: 'gprotein',
+        memory: { glyph: '💧', char: 'Water-splitter' },
         hint: 'Activates phospholipase C-β. Coupled by α1-adrenergic, M1/M3 muscarinic, H1 histamine, V1 vasopressin, AT1 angiotensin, oxytocin, 5-HT2.' },
 
       // Tier 4 — effector enzymes
       { id: 'ac_pos', label: 'Adenylate Cyclase', sublabel: 'activated', x: 200, y: 415, type: 'enzyme',
+        memory: { glyph: '☕', char: 'cAMP brewer' },
         hint: 'Membrane-bound enzyme. Converts ATP → cAMP + PPi. Activated by Gαs and by forskolin (research tool). Inhibited by Gαi.',
         drugs: ['caffeine (PDE inhibitor — keeps cAMP up)', 'theophylline'] },
       { id: 'ac_neg', label: 'Adenylate Cyclase', sublabel: 'inhibited', x: 550, y: 415, type: 'enzyme',
+        memory: { glyph: '🚫', char: 'Brewer paused' },
         hint: 'Same enzyme — but now suppressed by Gαi binding. Net result: less cAMP, less PKA, opposite of whatever Gs would have driven (e.g. M2 in heart slows the rate by inhibiting Gs-driven cAMP).' },
       { id: 'plc', label: 'Phospholipase C-β', sublabel: 'cleaves PIP₂', x: 900, y: 415, type: 'enzyme',
+        memory: { glyph: '🪓', char: 'PIP₂ chopper' },
         hint: 'Cleaves membrane PIP₂ into TWO second messengers in one step: IP₃ (water-soluble, diffuses to ER) and DAG (lipid-soluble, stays in membrane). Both signals are essential for the Gq response.' },
 
       // Tier 5 — second messengers
       { id: 'camp_hi', label: 'cAMP ↑', sublabel: 'second messenger', x: 110, y: 540, type: 'messenger',
+        memory: { glyph: '⚡', char: 'Charged-up cAMP' },
         hint: 'Cyclic AMP. Made from ATP by adenylate cyclase, broken down by phosphodiesterases (PDEs). Caffeine inhibits PDE → cAMP stays high → more lipolysis, more alertness. Sildenafil inhibits PDE5 specifically (cGMP, not cAMP, but same principle).' },
       { id: 'camp_lo', label: 'cAMP ↓', sublabel: 'less PKA activity', x: 410, y: 540, type: 'messenger',
+        memory: { glyph: '🪫', char: 'Drained cAMP' },
         hint: 'When Gαi is active, cAMP falls. Less cAMP means less PKA activity — opposite of Gs-driven outputs. Why M2 muscarinic stimulation slows the heart, why α2 reduces NE release, why opioids reduce neuronal excitability.' },
       { id: 'ip3', label: 'IP₃', sublabel: 'inositol-1,4,5-trisP', x: 800, y: 540, type: 'messenger',
+        memory: { glyph: '🔓', char: 'ER Ca²⁺ key' },
         hint: 'Diffuses through cytoplasm to the SMOOTH ER and opens IP₃-receptor Ca²⁺ channels in the ER membrane → cytosolic Ca²⁺ rises 100×. Lithium inhibits inositol monophosphatase, depleting myo-inositol — proposed mechanism for its mood-stabilizing action in bipolar disorder.' },
       { id: 'dag', label: 'DAG', sublabel: 'diacylglycerol', x: 1000, y: 540, type: 'messenger',
+        memory: { glyph: '🪝', char: 'Membrane hook' },
         hint: 'Stays in the membrane (it\'s a lipid). Together with Ca²⁺, recruits and activates Protein Kinase C (PKC) at the membrane.' },
 
       // Tier 6 — kinases / effectors
       { id: 'pka', label: 'PKA', sublabel: 'Protein Kinase A', x: 110, y: 670, type: 'effector',
+        memory: { glyph: '✏️', char: 'Master phosphorylator' },
         hint: 'Tetramer of 2 regulatory + 2 catalytic subunits. cAMP binds the regulatory subunits → catalytic subunits dissociate and become active. Phosphorylates Ser/Thr on hundreds of targets — CREB (transcription), glycogen phosphorylase kinase, hormone-sensitive lipase, troponin I, myosin light chain phosphatase.' },
       { id: 'ca', label: 'Ca²⁺ release', sublabel: 'from ER', x: 800, y: 670, type: 'effector',
+        memory: { glyph: '🌊', char: 'Calcium tide' },
         hint: 'Cytosolic Ca²⁺ rises sharply (~100 nM → ~1 µM). Acts as a "third messenger" — binds calmodulin (CaM-kinases), troponin C (cardiac/skeletal contraction), calcineurin (T-cell activation, target of cyclosporine/tacrolimus).' },
       { id: 'pkc', label: 'PKC', sublabel: 'Protein Kinase C', x: 1000, y: 670, type: 'effector',
+        memory: { glyph: '🔧', char: 'Membrane wrench' },
         hint: 'Activated by DAG + Ca²⁺ (classical PKCs need both). Phosphorylates targets driving smooth-muscle contraction, secretion, growth, transcription. Some isoforms are oncogenic when persistently active (phorbol esters mimic DAG and are tumor promoters).' },
 
       // Tier 7 — output
       { id: 'response', label: 'Cellular Response', sublabel: 'transcription · contraction · secretion · metabolism', x: 550, y: 805, type: 'output',
+        memory: { glyph: '🎯', char: 'Cell does the thing' },
         hint: 'The exact response depends on which cell type, which GPCR, and which downstream targets are present. β-adrenergic in heart → ↑rate, ↑contractility (PKA phosphorylates L-type Ca channels and phospholamban). α1 in vessels → vasoconstriction (PKC + Ca²⁺ drive myosin light-chain phosphorylation). M3 in salivary gland → secretion. Gαq in liver → glycogenolysis (Ca²⁺ activates phosphorylase kinase).' }
     ],
     edges: [

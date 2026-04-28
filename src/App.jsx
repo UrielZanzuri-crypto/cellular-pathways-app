@@ -64,15 +64,22 @@ function stepAccents(cycle, stepId) {
 
 // ---------- Top bar ----------
 function TopBar({ cycle, onStartCinema, onToggleRail, onToggleSide, chapterNum }) {
-  const abbr = cycle.title?.en?.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'Bx';
+  const hasCinema = !!cycle.steps?.length;
   return (
     <header className="topbar">
       <div className="topbar__left">
         <button className="logo-btn" onClick={onToggleRail} aria-label="Open menu">
-          <div className="logo__mark">{abbr}</div>
+          <div className="logo__mark logo__mark--cascade">
+            {/* Three cascading bars suggesting signal-flow tiers */}
+            <svg viewBox="0 0 28 28" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+              <line x1="6"  y1="9"  x2="22" y2="9" />
+              <line x1="9"  y1="14" x2="19" y2="14" />
+              <line x1="11" y1="19" x2="17" y2="19" />
+            </svg>
+          </div>
           <div>
-            <div className="logo__title">Mnemonica</div>
-            <div className="logo__sub">Biochemistry{chapterNum ? ` · Ch. ${chapterNum}` : ''}</div>
+            <div className="logo__title">Cascade</div>
+            <div className="logo__sub">Cellular Pathways{chapterNum ? ` · Ch. ${chapterNum}` : ''}</div>
           </div>
         </button>
       </div>
@@ -87,9 +94,11 @@ function TopBar({ cycle, onStartCinema, onToggleRail, onToggleSide, chapterNum }
         <button className="btn btn--sm btn--ghost mobile-menu-btn" onClick={onToggleSide} aria-label="Step detail">
           <ChevronRight className="w-4 h-4" />
         </button>
-        <button className="btn btn--primary" onClick={onStartCinema}>
-          <span className="btn__icon">▶</span> Cinema
-        </button>
+        {hasCinema && (
+          <button className="btn btn--primary" onClick={onStartCinema}>
+            <span className="btn__icon">▶</span> Cinema
+          </button>
+        )}
       </div>
     </header>
   );
@@ -97,12 +106,17 @@ function TopBar({ cycle, onStartCinema, onToggleRail, onToggleSide, chapterNum }
 
 // ---------- Left rail — layers + cycle chooser ----------
 function LeftRail({ layers, toggleLayer, cycle, activeCycleId, onSelectCycle }) {
+  // Signaling-pathway-relevant layers. Each one ADDS information to the base
+  // diagram — none of them is meaningless for cellular pathways.
+  // - Drugs: highlights nodes that have known drug targets (pill badge corner)
+  // - Clinical: highlights nodes that have a clinical correlate (red caduceus)
+  // - Inhibition: emphasizes negative regulation edges (dim activators, bold red T-bars)
+  // - Memory: swaps node labels for memorable character metaphors
   const entries = [
-    { k: 'stoich',      label: 'Stoichiometry', sub: 'ATP counts on arrows',        glyph: '2×', hue: 40 },
-    { k: 'cofactors',   label: 'Cofactors',     sub: 'ATP · NADH clusters',          glyph: '⚡', hue: 60 },
-    { k: 'regulation',  label: 'Regulation',    sub: '+ activators / − inhibitors', glyph: '±',  hue: 150 },
-    { k: 'integration', label: 'Integration',   sub: 'Exits to other pathways',      glyph: '↗', hue: 280 },
-    { k: 'tissue',      label: 'Tissue state',  sub: 'Compartments + hormonal',      glyph: '◉', hue: 25 },
+    { k: 'drugs',      label: 'Drug targets',    sub: 'pill badges on druggable nodes',  glyph: '℞',  hue: 320 },
+    { k: 'clinical',   label: 'Clinical',         sub: 'syndromes & disease links',      glyph: '✚',  hue: 25  },
+    { k: 'inhibition', label: 'Inhibition focus', sub: 'emphasize negative regulation',  glyph: '⊣',  hue: 0   },
+    { k: 'memory',     label: 'Memory hooks',     sub: 'replace labels with metaphors',  glyph: '🧠', hue: 240 }
   ];
   const onCount = Object.values(layers).filter(Boolean).length;
   const grouped = getCyclesByChapter();
@@ -110,10 +124,10 @@ function LeftRail({ layers, toggleLayer, cycle, activeCycleId, onSelectCycle }) 
   return (
     <aside className="rail">
       <div className="rail__hdr">
-        <div className="rail__title">Layers</div>
+        <div className="rail__title">Highlights</div>
         <div className="rail__count">{onCount}/{entries.length} on</div>
       </div>
-      <div className="rail__hint">Reveal complexity as you need it.</div>
+      <div className="rail__hint">Layer signal-specific overlays onto the diagram.</div>
       <div className="rail__items">
         {entries.map((e) => {
           const on = layers[e.k];
@@ -141,7 +155,7 @@ function LeftRail({ layers, toggleLayer, cycle, activeCycleId, onSelectCycle }) 
         })}
       </div>
 
-      <div className="rail__section" style={{ marginTop: 14 }}>Cycles</div>
+      <div className="rail__section" style={{ marginTop: 14 }}>Pathways</div>
       {grouped.map(group => {
         if (group.cycles.length === 0) return null;
         return (
@@ -385,6 +399,17 @@ function PathwayHintCard({ node, cycle, onClose }) {
       </div>
 
       <div className="step-card__body">
+        {/* Memory hook — always visible if the node has one */}
+        {node.memory && (
+          <div className="story">
+            <div className="story__hdr">
+              <span className="story__icon">{node.memory.glyph}</span>
+              <span className="story__title">Memory hook</span>
+            </div>
+            <div className="story__body">{node.memory.char}</div>
+          </div>
+        )}
+
         {/* Hint — the high-yield "why" */}
         {node.hint && (
           <div className="hint-card">
@@ -762,13 +787,12 @@ export default function App() {
   const [hideMode] = useState('none');
   const [masteryTrigger, setMasteryTrigger] = useState(0);
 
-  // Diagram overlay layers
+  // Diagram overlay layers (signaling-relevant)
   const [layers, setLayers] = useState({
-    stoich: false,
-    cofactors: false,
-    regulation: false,
-    integration: false,
-    tissue: true,
+    drugs: false,
+    clinical: false,
+    inhibition: false,
+    memory: false,
   });
 
   // Cinema state
@@ -899,11 +923,11 @@ export default function App() {
 
           {view === 'explore' && (
             <>
-              {layers.tissue && cycle.context && (
-                <div className="tissue-card">
-                  <div className="tissue-card__k">Tissue</div>
-                  <div className="tissue-card__v">{cycle.context.tissue?.en || cycle.context.tissue}</div>
-                  <div className="tissue-card__sub">{cycle.context.state?.en || cycle.context.state}</div>
+              {/* Permanent mnemonic banner — replaces the always-"Universal" tissue card */}
+              {mnemonic && (
+                <div className="mnemonic" style={{ marginTop: 4 }}>
+                  <span className="mnemonic__k">Mnemonic</span>
+                  <span className="mnemonic__v">“{mnemonic}”</span>
                 </div>
               )}
 
@@ -951,6 +975,10 @@ export default function App() {
                         cycle={cycle}
                         selectedNodeId={activeStep}
                         onSelectNode={(id) => setActiveStep(id)}
+                        showDrugs={layers.drugs}
+                        showClinical={layers.clinical}
+                        inhibitionFocus={layers.inhibition}
+                        memoryMode={layers.memory}
                       />
                     ) : cycle.layout === 'network' ? (
                       <NetworkDiagram
@@ -976,12 +1004,6 @@ export default function App() {
                 </div>
               </div>
 
-              {mnemonic && (
-                <div className="mnemonic">
-                  <span className="mnemonic__k">Mnemonic</span>
-                  <span className="mnemonic__v">“{mnemonic}”</span>
-                </div>
-              )}
               {overall && (
                 <div className="equation">
                   <span className="equation__k">Overall</span>
