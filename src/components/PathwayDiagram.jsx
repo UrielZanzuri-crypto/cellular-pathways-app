@@ -53,6 +53,22 @@ const TYPE_STYLES = {
   output:    { fill: '#fef9c3', stroke: '#ca8a04', text: '#713f12' }
 };
 
+// Compute box dimensions large enough to contain BOTH label and sublabel.
+// Falls back to defaults if neither is unusually long. Authors can still set
+// explicit n.w / n.h to override.
+function effectiveSize(node) {
+  const labelChars = (node.label || '').length;
+  const sublabelChars = (node.sublabel || '').length;
+  // Approx px-per-char: bold 12.5px ≈ 7.4, regular 9.5px ≈ 5.6
+  const labelW    = labelChars    * 7.4 + 32;  // 32 = padding for left glyph + breathing room
+  const sublabelW = sublabelChars * 5.6 + 32;
+  const auto = Math.max(labelW, sublabelW, NODE_W_DEFAULT);
+  // Cap so a runaway sublabel can't blow up the diagram
+  const w = node.w || Math.min(auto, 300);
+  const h = node.h || NODE_H_DEFAULT;
+  return { w, h };
+}
+
 export default function PathwayDiagram({
   cycle,
   selectedNodeId,
@@ -102,10 +118,12 @@ export default function PathwayDiagram({
         const b = nodeById[e.to];
         if (!a || !b) return null;
 
-        const aw = (a.w || NODE_W_DEFAULT) / 2;
-        const ah = (a.h || NODE_H_DEFAULT) / 2;
-        const bw = (b.w || NODE_W_DEFAULT) / 2;
-        const bh = (b.h || NODE_H_DEFAULT) / 2;
+        const aSize = effectiveSize(a);
+        const bSize = effectiveSize(b);
+        const aw = aSize.w / 2;
+        const ah = aSize.h / 2;
+        const bw = bSize.w / 2;
+        const bh = bSize.h / 2;
 
         // Each end of the line sits on the rectangle's perimeter, oriented
         // toward the OTHER node. That way the arrow head always reaches the
@@ -177,8 +195,7 @@ export default function PathwayDiagram({
       {/* ---------- Nodes ---------- */}
       {path.nodes.map(n => {
         const style = TYPE_STYLES[n.type] || TYPE_STYLES.phase;
-        const w = n.w || NODE_W_DEFAULT;
-        const h = n.h || NODE_H_DEFAULT;
+        const { w, h } = effectiveSize(n);
         const isHidden = hiddenIds.has(n.id);
         const isRevealed = !!revealedIds[n.id];
         const isHover = hoverId === n.id;

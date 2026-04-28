@@ -258,8 +258,8 @@ ATM and ATR phosphorylate p53 on Ser-15. They also phosphorylate MDM2, weakening
       // Damage path
       { from: 'damage', to: 'p53', label: 'ATM/ATR stabilize', style: 'activate' },
       { from: 'p53', to: 'p21', label: 'transcribes', style: 'activate' },
-      { from: 'p21', to: 'cycD', label: '⊣', style: 'inhibit' },
-      { from: 'p21', to: 'cycE', label: '⊣', style: 'inhibit' },
+      { from: 'p21', to: 'cycD', label: 'blocks CDK4/6', style: 'inhibit' },
+      { from: 'p21', to: 'cycE', label: 'blocks CDK2',   style: 'inhibit' },
       { from: 'p21', to: 'arrest', label: 'halts cycle', style: 'activate' }
     ]
   },

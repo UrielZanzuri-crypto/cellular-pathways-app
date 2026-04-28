@@ -423,11 +423,19 @@ function PathwayHintCard({ node, cycle, onClose }) {
           </div>
         )}
 
-        {/* Wiring — what connects in and out */}
-        {(incoming.length > 0 || outgoing.length > 0) && (
+        {/* Wiring — what connects in and out.
+            Labels are cycle-aware: junctions are structural, so 'Activated by'/
+            'Acts on' don't fit. Each cycle can override via pathway.relationships. */}
+        {(incoming.length > 0 || outgoing.length > 0) && (() => {
+          const rel = cycle.pathway.relationships || {};
+          const incomingLabel = rel.incoming || 'Activated by';
+          const outgoingLabel = rel.outgoing || 'Acts on';
+          const defaultActVerb = rel.activateVerb || 'activates';
+          const defaultInhVerb = rel.inhibitVerb || 'inhibits';
+          return (
           <div className="rxn">
             <div className="rxn__side">
-              <div className="field__k" style={{ marginBottom: 4 }}>Activated by</div>
+              <div className="field__k" style={{ marginBottom: 4 }}>{incomingLabel}</div>
               {incoming.length === 0 && <div className="chip"><span className="chip__sub">— upstream of pathway —</span></div>}
               {incoming.map((e, i) => {
                 const src = nodeById[e.from];
@@ -436,7 +444,7 @@ function PathwayHintCard({ node, cycle, onClose }) {
                 return (
                   <div key={i} className={`chip ${isInh ? '' : 'chip--source'}`} style={isInh ? { borderColor: '#dc2626', background: '#fef2f2' } : {}}>
                     <span className="chip__name">{src.label}</span>
-                    <span className="chip__sub" style={isInh ? { color: '#b91c1c' } : {}}>{e.label || (isInh ? 'inhibits' : 'activates')}</span>
+                    <span className="chip__sub" style={isInh ? { color: '#b91c1c' } : {}}>{e.label || (isInh ? defaultInhVerb : defaultActVerb)}</span>
                   </div>
                 );
               })}
@@ -445,7 +453,7 @@ function PathwayHintCard({ node, cycle, onClose }) {
               <span style={{ color: accent, fontSize: 28 }}>→</span>
             </div>
             <div className="rxn__side">
-              <div className="field__k" style={{ marginBottom: 4 }}>Acts on</div>
+              <div className="field__k" style={{ marginBottom: 4 }}>{outgoingLabel}</div>
               {outgoing.length === 0 && <div className="chip"><span className="chip__sub">— terminal in pathway —</span></div>}
               {outgoing.map((e, i) => {
                 const tgt = nodeById[e.to];
@@ -454,13 +462,14 @@ function PathwayHintCard({ node, cycle, onClose }) {
                 return (
                   <div key={i} className={`chip ${isInh ? '' : 'chip--main'}`} style={isInh ? { borderColor: '#dc2626', background: '#fef2f2' } : {}}>
                     <span className="chip__name">{tgt.label}</span>
-                    <span className="chip__sub" style={isInh ? { color: '#b91c1c' } : {}}>{e.label || (isInh ? 'inhibits' : 'activates')}</span>
+                    <span className="chip__sub" style={isInh ? { color: '#b91c1c' } : {}}>{e.label || (isInh ? defaultInhVerb : defaultActVerb)}</span>
                   </div>
                 );
               })}
             </div>
           </div>
-        )}
+          );
+        })()}
 
         {/* Clinical correlate — when present */}
         {node.clinical && (

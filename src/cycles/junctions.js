@@ -147,6 +147,16 @@ Mucopolysaccharidoses (e.g., **Hurler, Hunter syndrome**) are lysosomal-storage 
 
   pathway: {
     viewBox: [0, 0, 1100, 920],
+    // Junctions are structural, not signaling — override the default
+    // 'Activated by' / 'Acts on' labels. Edges describe membership ("Tight
+    // junction is part of Cell-Cell Junctions") and composition ("Cell-Cell
+    // Junctions comprises tight, adherens, desmosomes, gap").
+    relationships: {
+      incoming: 'Part of',
+      outgoing: 'Components',
+      activateVerb: 'comprises',
+      inhibitVerb: 'restricts'
+    },
     nodes: [
       // Tier 1 — root header
       { id: 'root', label: 'Cell Junctions & ECM', sublabel: 'apical → basal', x: 550, y: 55, type: 'phase',
