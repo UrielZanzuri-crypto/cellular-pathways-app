@@ -117,6 +117,53 @@ ATM and ATR phosphorylate p53 on Ser-15. They also phosphorylate MDM2, weakening
 - **Paclitaxel (Taxol), docetaxel** → STABILIZE microtubules so they can\'t depolymerize → spindle dynamics fail → SAC engaged → metaphase arrest. Used in breast, ovarian, lung.
 
 **Why this matters clinically:** chemo only works on dividing cells. Quiescent (G0) cancer stem cells often escape chemotherapy and seed relapse. CDK4/6 inhibitors put cells INTO G0 — which paradoxically can be exploited (with endocrine therapy) or be a problem (drug resistance).`
+    },
+    {
+      title: 'M-phase walkthrough — mitosis stage by stage',
+      icon: '✂️',
+      body: `M-phase covers everything between "DNA fully replicated, ready to divide" and "two daughter cells exist." It\'s split into mitosis (nuclear division, sub-staged as **PMAT**) plus cytokinesis (cytoplasmic division). Time-wise, M-phase is the SHORTEST cell-cycle phase — usually ~1 hour out of a 24-hour cycle — but it\'s the most dramatic structurally.
+
+**Setup at G2/M boundary.** Cyclin B accumulates through G2 and binds CDK1 → cytoplasmic CDK1 is held inactive by phosphorylation on Thr-14/Tyr-15 by Wee1. **CDC25 phosphatase** removes those inhibitory phosphates → CDK1 activates suddenly → cyclin B/CDK1 (= MPF) translocates to the nucleus → mitotic entry. CDK1 then phosphorylates ~70+ substrates that drive every visible mitotic change.
+
+**1. PROPHASE — "chromosomes appear, spindle starts to build."**
+- **Chromatin condenses** into visible chromosomes. Each chromosome already has TWO sister chromatids (DNA was replicated in S phase), held together at the **centromere** by the **cohesin** complex. CDK1-driven phosphorylation of **condensin** drives the looping/coiling that compacts loose chromatin (~10,000-fold) into rod-like chromosomes.
+- **Centrosomes** (which duplicated in S phase) migrate to opposite poles of the cell. Each centrosome nucleates microtubules → the **mitotic spindle** starts forming.
+- **Nucleolus disappears** (rRNA transcription pauses).
+
+**2. PROMETAPHASE — "nuclear envelope breaks, microtubules grab chromosomes."**
+- **Nuclear envelope breakdown (NEBD).** CDK1 phosphorylates **lamins A, B, and C** → the nuclear lamina depolymerizes → the entire envelope fragments into vesicles. This is the molecular event that frees the spindle to reach the chromosomes.
+- **Kinetochores** assemble on each centromere (one kinetochore per sister chromatid → two per chromosome, facing opposite directions). Spindle microtubules from both poles "search and capture" kinetochores.
+- Each chromosome is pulled and tugged until both sister kinetochores are attached to microtubules from OPPOSITE poles ("bi-orientation"). Tension across the centromere is the molecular signal that says "correctly attached."
+
+**3. METAPHASE — "all chromosomes line up at the equator."**
+- All chromosomes align at the **metaphase plate** (the mid-cell equatorial plane) under tension from both spindle poles.
+- The **spindle-assembly checkpoint (SAC)** monitors every kinetochore. Any UNATTACHED kinetochore generates a "wait" signal (Mad2 + BubR1 → MCC complex → inhibits APC/C-CDC20). Until 100% of kinetochores are attached and under tension, anaphase cannot begin. **Vincristine/vinblastine** prevent attachment by blocking microtubule polymerization → permanent SAC arrest. **Paclitaxel** stabilizes microtubules so they can\'t depolymerize → also locks SAC.
+
+**4. ANAPHASE — "sisters separate, fly apart."** (Triggered when SAC is satisfied.)
+- **APC/C-CDC20** activates and ubiquitinates two key targets:
+  - **Securin** → degraded → liberates **separase** → cleaves the **cohesin** rings holding sister chromatids together → sisters spring apart.
+  - **Cyclin B** → degraded → CDK1 inactivates → mitotic-exit phosphatases reverse CDK1\'s phosphorylations.
+- **Anaphase A**: kinetochore microtubules shorten → sister chromatids are pulled toward opposite poles.
+- **Anaphase B**: polar microtubules slide past each other and astral microtubules pull on the cortex → the entire spindle elongates → poles move further apart.
+- This is the moment that determines daughter-cell ploidy. **Errors here = aneuploidy** — losing or gaining a chromosome. Chromosomal nondisjunction at meiosis I or II in oogenesis is the basis of **trisomy 21 (Down), trisomy 18 (Edwards), trisomy 13 (Patau)**, with maternal age the dominant risk factor.
+
+**5. TELOPHASE — "two new nuclei reform."**
+- Chromosomes arrive at poles and **decondense** (CDK1-driven phosphorylations are reversed by phosphatases now that CDK1 is destroyed).
+- **Nuclear envelope reforms** around each set: lamins dephosphorylate and re-polymerize, ER-derived membranes wrap each chromatin mass.
+- Nucleolus reappears.
+- Spindle microtubules disassemble.
+
+**6. CYTOKINESIS — "cytoplasm splits in two."**
+- Animal cells: an **actin-myosin contractile ring** assembles at the cell equator (positioned by signals from the spindle midzone) and contracts like a drawstring → **cleavage furrow** → eventually pinches the cell in two. Failure → binucleate cell → the basis of **tetraploidy**, an early step in many tumours.
+- Plant cells: form a **cell plate** at the equator that grows outward into a new cell wall.
+- Result: two genetically identical diploid daughter cells.
+
+**Clinical & exam high-yield:**
+- **Mitotic poisons (vinca alkaloids, taxanes)** all act at metaphase, arresting cells via the SAC → eventually mitotic catastrophe → apoptosis. Specific to dividing cells, hence used in lymphomas, leukemias, breast/ovarian/lung cancer.
+- **Aurora kinases** (A and B) are essential mitotic kinases (centrosome maturation, spindle assembly, cytokinesis). Targeted by experimental drugs (alisertib).
+- **Nondisjunction in meiosis I** vs **meiosis II** distinguishes the molecular origin of trisomies — meiosis-I errors yield homologous-chromosome failures (most maternal-age-dependent trisomies), meiosis-II errors yield sister-chromatid failures.
+- **Polo-like kinase 1 (PLK1)** triggers mitotic entry and is overexpressed in many cancers — also a drug target.
+- **Chromosomal instability (CIN)** = persistent mis-segregation across many divisions → aneuploid karyotypes characteristic of solid tumours (colorectal, breast, etc.). Often driven by SAC defects, centrosome amplification, or cohesin dysfunction.`
     }
   ],
 
@@ -143,7 +190,7 @@ ATM and ATR phosphorylate p53 on Ser-15. They also phosphorylate MDM2, weakening
         hint: 'Second gap phase. The cell verifies DNA was replicated correctly and prepares mitotic machinery (centrosome duplication, condensin assembly, spindle precursors).' },
       { id: 'm', label: 'M Phase', sublabel: 'mitosis + cytokinesis', x: 900, y: 60, type: 'phase',
         memory: { glyph: '✂️', char: 'Splitter room' },
-        hint: 'Mitosis (PMAT — prophase, metaphase, anaphase, telophase) followed by cytokinesis. Two daughter cells emerge, each with a 2N genome. Chromosomes condense, nuclear envelope breaks down, sisters segregate to opposite poles.' },
+        hint: 'Mitosis is divided into PMAT — Prophase, (Pro)Metaphase, Anaphase, Telophase — followed by cytokinesis. (1) PROPHASE: chromatin condenses into visible chromosomes (each = 2 sister chromatids); centrosomes migrate to opposite poles; mitotic spindle starts forming. (2) PROMETAPHASE: nuclear envelope breaks down (lamins phosphorylated by CDK1); kinetochores form on centromeres and capture spindle microtubules. (3) METAPHASE: chromosomes align at the metaphase plate (mid-cell); the spindle-assembly checkpoint (SAC) verifies bi-orientation of every kinetochore. (4) ANAPHASE: APC/C-CDC20 activates → ubiquitinates securin → frees separase → cleaves cohesin → sister chromatids separate and migrate poleward. APC/C also destroys cyclin B → CDK1 inactivates. (5) TELOPHASE: chromosomes decondense, nuclear envelope reforms around each set, spindle disassembles. (6) CYTOKINESIS: actin-myosin contractile ring pinches the cell into two daughters (animal cells) or cell-plate forms (plants). Result: two diploid daughter cells, each 2N with identical genomes.' },
 
       // Tier 2 — cyclin-CDK pairs
       { id: 'cycD', label: 'Cyclin D / CDK4-6', sublabel: 'early G1 · GF-responsive', x: 150, y: 195, type: 'enzyme',
@@ -274,7 +321,15 @@ ATM and ATR phosphorylate p53 on Ser-15. They also phosphorylate MDM2, weakening
       { k: 'Three checkpoints', v: 'G1/S (most exam-relevant — Rb/p53 axis). G2/M (CDC25 phosphatase activates CDK1). Spindle (SAC keeps APC/C off until all kinetochores attached).' },
       { k: 'CDK4/6 inhibitors', v: 'Palbociclib, ribociclib, abemaciclib. Used in HR+/HER2− metastatic breast cancer with endocrine therapy.' },
       { k: 'Spindle poisons', v: 'Vincristine/vinblastine block tubulin polymerization (SAC arrest, apoptosis). Paclitaxel STABILIZES microtubules (also SAC arrest).' },
-      { k: 'APC/C', v: 'E3 ligase that destroys securin (releases separase → sister chromatid separation) and cyclin B (inactivates CDK1 → mitotic exit) at metaphase-anaphase transition.' }
+      { k: 'APC/C', v: 'E3 ligase that destroys securin (releases separase → sister chromatid separation) and cyclin B (inactivates CDK1 → mitotic exit) at metaphase-anaphase transition.' },
+      { k: 'PMAT (mitosis stages)', v: 'Prophase → Prometaphase → Metaphase → Anaphase → Telophase → Cytokinesis. Mnemonic: "Please Make Another Two Cells".' },
+      { k: 'Prophase', v: 'Chromosomes condense (condensin + CDK1). Centrosomes migrate to poles. Spindle starts forming. Nucleolus disappears.' },
+      { k: 'Prometaphase / NEBD', v: 'CDK1 phosphorylates lamins → nuclear envelope fragments. Kinetochores capture spindle microtubules from both poles ("bi-orientation").' },
+      { k: 'Metaphase', v: 'Chromosomes align at the metaphase plate. SAC verifies every kinetochore attached + under tension. Drug target window: vincristine / paclitaxel.' },
+      { k: 'Anaphase trigger', v: 'APC/C-CDC20 destroys securin → separase free → cleaves cohesin → sisters separate. Same APC/C destroys cyclin B → CDK1 off → mitotic exit.' },
+      { k: 'Cohesin & cohesin', v: 'Cohesin = ring holding sister chromatids together. Condensin = compacts each chromosome. Both members of the SMC family.' },
+      { k: 'Cytokinesis', v: 'Animal cells: actin-myosin contractile ring → cleavage furrow → 2 daughters. Failure → tetraploid binucleate cell (early step in many tumours).' },
+      { k: 'Nondisjunction', v: 'Mis-segregation in meiosis I (homolog failure, maternal-age-dependent) or meiosis II (sister failure) → aneuploidy. Trisomy 21 (Down), 18 (Edwards), 13 (Patau).' }
     ]
   },
 
@@ -293,6 +348,10 @@ ATM and ATR phosphorylate p53 on Ser-15. They also phosphorylate MDM2, weakening
     { id: 'cc-q12', difficulty: 'hard', prompt: { en: 'Palbociclib is a:' }, correct: 'CDK4/6 inhibitor (used in HR+ metastatic breast cancer)', options: ['CDK4/6 inhibitor (used in HR+ metastatic breast cancer)', 'CDK1 inhibitor', 'p53 activator', 'Aurora kinase inhibitor'] },
     { id: 'cc-q13', difficulty: 'medium', prompt: { en: 'Mantle-cell lymphoma is associated with:' }, correct: 'Cyclin D1 overexpression from t(11;14)', options: ['Cyclin D1 overexpression from t(11;14)', 'BCR-ABL t(9;22)', 'Cyclin E loss', 'p53 mutation only'] },
     { id: 'cc-q14', difficulty: 'hard', prompt: { en: 'APC/C-CDC20 triggers anaphase by:' }, correct: 'Ubiquitinating securin (frees separase) and cyclin B (inactivates CDK1)', options: ['Ubiquitinating securin (frees separase) and cyclin B (inactivates CDK1)', 'Phosphorylating Rb', 'Activating p53', 'Releasing E2F'] },
-    { id: 'cc-q15', difficulty: 'hard', prompt: { en: 'Li-Fraumeni syndrome is caused by germline mutations in:' }, correct: 'TP53', options: ['TP53', 'RB1', 'BRCA1', 'APC'] }
+    { id: 'cc-q15', difficulty: 'hard', prompt: { en: 'Li-Fraumeni syndrome is caused by germline mutations in:' }, correct: 'TP53', options: ['TP53', 'RB1', 'BRCA1', 'APC'] },
+    { id: 'cc-q16', difficulty: 'easy', prompt: { en: 'The correct order of mitotic stages is:' }, correct: 'Prophase → Prometaphase → Metaphase → Anaphase → Telophase', options: ['Prophase → Prometaphase → Metaphase → Anaphase → Telophase', 'Prophase → Metaphase → Prometaphase → Anaphase → Telophase', 'Metaphase → Prophase → Anaphase → Telophase → Prometaphase', 'Anaphase → Metaphase → Prophase → Telophase → Prometaphase'] },
+    { id: 'cc-q17', difficulty: 'hard', prompt: { en: 'Nuclear envelope breakdown at prometaphase is triggered by:' }, correct: 'CDK1-mediated phosphorylation of nuclear lamins', options: ['CDK1-mediated phosphorylation of nuclear lamins', 'Calcium influx', 'Caspase-3 cleavage of lamins', 'Aurora kinase B phosphorylating histones'] },
+    { id: 'cc-q18', difficulty: 'hard', prompt: { en: 'Sister chromatid separation at anaphase is triggered by:' }, correct: 'APC/C-CDC20 ubiquitinates securin → separase released → cleaves cohesin', options: ['APC/C-CDC20 ubiquitinates securin → separase released → cleaves cohesin', 'CDK1 directly cleaves cohesin', 'p53 transcribes separase', 'Microtubule depolymerization mechanically tears them apart'] },
+    { id: 'cc-q19', difficulty: 'medium', prompt: { en: 'Cytokinesis in animal cells is driven by:' }, correct: 'An actin-myosin contractile ring forming a cleavage furrow', options: ['An actin-myosin contractile ring forming a cleavage furrow', 'A cell plate growing outward at the equator', 'Microtubule depolymerization at the centrosomes', 'Nuclear-envelope reformation pinching the cytoplasm'] }
   ]
 };
