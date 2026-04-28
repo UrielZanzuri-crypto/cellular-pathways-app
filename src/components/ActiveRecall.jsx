@@ -75,12 +75,15 @@ function buildSlots(cycle) {
     cycle.pathway.nodes.forEach(n => {
       if (n.type === 'phase' || n.type === 'output') return;
       if (n.noRecall) return;
+      // Hit radius matches the rectangular node area more generously than the
+      // 36-px default (sized for circular hubs). 168×60 box → half-diagonal ~89,
+      // 50 catches the box without overlapping neighbours.
       slots.push({
         id: n.id,
         kind: n.type,
         x: n.x,
         y: n.y,
-        radius: 36,
+        radius: 50,
         label: n.label,
         sublabel: n.sublabel,
         accent: TYPE_ACCENTS[n.type] || '#475569'
@@ -259,7 +262,10 @@ export default function ActiveRecall({ cycle, lang, onExit }) {
   const svgToPx = useCallback((sx, sy) => {
     const stage = stageRef.current;
     if (!stage) return { x: 0, y: 0 };
-    const svg = stage.querySelector('svg.recall-map');
+    // Match either the legacy circular/linear class or the net-map class used by
+    // NetworkDiagram and PathwayDiagram. Without this fallback, drag/drop is broken
+    // for any pathway-layout cycle (no SVG found, all coords return 0).
+    const svg = stage.querySelector('svg.recall-map, svg.net-map');
     if (!svg) return { x: 0, y: 0 };
     const pt = svg.createSVGPoint();
     pt.x = sx; pt.y = sy;
@@ -274,7 +280,7 @@ export default function ActiveRecall({ cycle, lang, onExit }) {
   const clientToSvg = useCallback((clientX, clientY) => {
     const stage = stageRef.current;
     if (!stage) return null;
-    const svg = stage.querySelector('svg.recall-map');
+    const svg = stage.querySelector('svg.recall-map, svg.net-map');
     if (!svg) return null;
     const pt = svg.createSVGPoint();
     pt.x = clientX; pt.y = clientY;

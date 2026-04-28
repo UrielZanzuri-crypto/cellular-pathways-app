@@ -615,11 +615,16 @@ function EmptyState({ cycle, onPickStep }) {
       effector: '#ea580c', modifier: '#dc2626', phase: '#475569',
       output: '#ca8a04'
     };
-    // Pick the entry-point nodes: ligands, phases (cell cycle), receptors
-    const entry = cycle.pathway.nodes.filter(n =>
-      n.type === 'ligand' || n.type === 'phase' || (n.type === 'receptor' && cycle.pathway.edges.every(e => e.to !== n.id))
-    );
-    const cast = entry.length > 0 ? entry : cycle.pathway.nodes.slice(0, 6);
+    // Show every node in the cast list so the user can jump straight to any
+    // step. (Previous version filtered to ligands + phases as "entry points",
+    // which left the right panel showing only one or two items — the user has
+    // no easy way to reach the rest. Mirroring biochem-app's network
+    // empty-state which shows ALL hubs.)
+    const TYPE_GLYPHS = {
+      ligand: '⬇', receptor: '⏚', adapter: '⊳', gprotein: '✦',
+      enzyme: '✧', messenger: '•', effector: '★', modifier: '⊣',
+      phase: '◆', output: '■'
+    };
     return (
       <div className="empty">
         <div className="empty__glyph">🧬</div>
@@ -629,12 +634,13 @@ function EmptyState({ cycle, onPickStep }) {
           Each node tells you what activates it, what it acts on, and the clinical context.
         </div>
         <div className="empty__cast">
-          {cast.map(n => {
+          {cycle.pathway.nodes.map(n => {
             const accent = TYPE_ACCENTS[n.type] || '#475569';
+            const glyph = TYPE_GLYPHS[n.type] || '◎';
             return (
               <button key={n.id} className="cast" onClick={() => onPickStep(n.id)}>
                 <span className="cast__icon" style={{ background: `${accent}20`, borderColor: accent, fontSize: 14, fontWeight: 800, color: accent }}>
-                  {n.type === 'ligand' ? '⬇' : n.type === 'receptor' ? '⏚' : n.type === 'phase' ? '◆' : '◎'}
+                  {glyph}
                 </span>
                 <div>
                   <div className="cast__name">{n.label}</div>
