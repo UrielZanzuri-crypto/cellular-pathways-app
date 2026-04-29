@@ -81,7 +81,10 @@ export default function PathwayDiagram({
   showDrugs = false,
   showClinical = false,
   inhibitionFocus = false,
-  memoryMode = false
+  memoryMode = false,
+  // Focus mode: when set to a Set of node ids, all OTHER nodes are dimmed so
+  // the user can study one conceptual chunk at a time. null = no filter.
+  focusedNodeIds = null
 }) {
   const path = cycle.pathway;
   if (!path) {
@@ -91,6 +94,9 @@ export default function PathwayDiagram({
       </div>
     );
   }
+
+  // Helper: is this node in focus? (true when no filter set, or when in the set)
+  const isFocused = (id) => !focusedNodeIds || focusedNodeIds.has(id);
 
   const [vx, vy, vw, vh] = path.viewBox || [0, 0, 1100, 880];
   const nodeById = Object.fromEntries(path.nodes.map(n => [n.id, n]));
@@ -197,10 +203,13 @@ export default function PathwayDiagram({
         }
 
         const chipDim = inhibitionFocus && !inhibit;
+        const edgeFocused = isFocused(e.from) && isFocused(e.to);
+        const edgeOpacity = (chipDim ? 0.5 : 1) * (edgeFocused ? 1 : 0.12);
+
         const showLabel = e.label && !e.noLabel;
 
         return (
-          <g key={`edge-${i}`} opacity={chipDim ? 0.5 : 1}>
+          <g key={`edge-${i}`} opacity={edgeOpacity}>
             <line
               x1={start.x} y1={start.y}
               x2={end.x}   y2={end.y}
@@ -259,11 +268,13 @@ export default function PathwayDiagram({
         const strokeWidth = isHidden ? 2.5 : (isSelected ? 2.5 : 1.75);
         const dasharray = isHidden && !isRevealed && !isHover ? '5 4' : 'none';
 
+        const nodeOpacity = isFocused(n.id) ? 1 : 0.18;
+
         return (
           <motion.g
             key={n.id}
             onClick={() => !isHidden && onSelectNode?.(n.id)}
-            style={{ cursor: isHidden ? 'default' : 'pointer' }}
+            style={{ cursor: isHidden ? 'default' : 'pointer', opacity: nodeOpacity }}
             animate={isShake ? { x: [0, -7, 7, -5, 5, 0] } : { x: 0 }}
             whileHover={!isHidden ? { scale: 1.04 } : undefined}
             transition={isShake ? { duration: 0.4 } : { type: 'spring', stiffness: 300, damping: 20 }}

@@ -197,7 +197,23 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
   },
 
   pathway: {
-    viewBox: [0, 0, 1800, 1080],
+    viewBox: [0, 0, 1900, 1140],
+    // Focus groups — let the user dim everything except one conceptual chunk.
+    // Pilot feature for this cycle (others can opt-in by adding focusGroups).
+    focusGroups: [
+      { id: 'coats', glyph: '🧱', label: 'Coat protein routes',
+        tip: 'COPII (ER→Golgi), COPI (back), Clathrin/AP1 (Golgi→Lysosome)',
+        nodes: ['er', 'copii', 'cisgolgi', 'copi', 'tgn', 'm6p', 'clathrin', 'lysosome'] },
+      { id: 'routes', glyph: '🚪', label: '5 endocytic routes',
+        tip: 'Clathrin, caveolae, macropinocytosis, phagocytosis, etc.',
+        nodes: ['pm', 'recycle', 'macropino', 'caveolae', 'ap2', 'phago', 'dynamin', 'endosome'] },
+      { id: 'fates', glyph: '🔀', label: 'LDL vs EGF receptor fates',
+        tip: 'LDL-R recycles, EGF-R is degraded — why the difference matters',
+        nodes: ['endosome', 'ldlr', 'egfr', 'recycle', 'pm', 'ldl', 'mvb', 'degrade'] },
+      { id: 'convergence', glyph: '🪦', label: 'Lysosomal convergence',
+        tip: 'Where everything ends up — both routes meet at lysosome',
+        nodes: ['lysosome', 'ldl', 'mvb', 'degrade'] }
+    ],
     nodes: [
       // ========== ZONE A — COAT-PROTEIN ROUTES (left half) ==========
 
@@ -243,69 +259,69 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
       // ========== ZONE B — RECEPTOR FATES (right half) ==========
 
       // Tier 1 — plasma membrane
-      { id: 'pm', label: 'Plasma Membrane', sublabel: 'cell surface', x: 1380, y: 100, type: 'phase',
+      { id: 'pm', label: 'Plasma Membrane', sublabel: 'cell surface', x: 1500, y: 100, type: 'phase',
         memory: { glyph: '🌐', char: 'Cell surface' },
         hint: 'Cell-surface lipid bilayer. Site of receptor display, ion exchange, and FIVE distinct endocytic routes that differ by coat protein, vesicle size, cargo type, and dynamin-dependence: (1) clathrin-mediated, (2) caveolae-mediated, (3) macropinocytosis, (4) phagocytosis (immune cells only), (5) clathrin/caveolae-independent (CLIC/GEEC, flotillin). Each route handles different cargo and has different clinical relevance.' },
 
       // Alternative endocytic routes (branching from PM, parallel to AP2 column)
-      { id: 'macropino', label: 'Macropinocytosis', sublabel: '>1 μm bulk fluid uptake', x: 640, y: 240, type: 'enzyme',
+      { id: 'macropino', label: 'Macropinocytosis', sublabel: '>1 μm bulk fluid uptake', x: 1000, y: 260, type: 'enzyme',
         memory: { glyph: '🌊', char: 'Bulk gulper' },
         hint: 'NON-selective bulk fluid uptake. Driven by actin-polymerization-driven membrane RUFFLES that fold over and trap large volumes of extracellular fluid (>1 μm vesicles — the largest endocytic vesicles). Triggered by growth factors (EGF, PDGF, M-CSF). Used by immature dendritic cells for antigen sampling. NO coat protein. Cargo includes whatever is in the surrounding fluid — proteins, salts, dissolved nutrients.',
         clinical: { disorder: 'KRAS-mutant cancers · "scavenger pathway"', findings: { en: 'KRAS-mutant pancreatic, colorectal, and lung cancers UPREGULATE macropinocytosis to scavenge extracellular proteins → catabolize to amino acids → fuel growth even when blood supply is poor. This is why nutrient-deprivation strategies don\'t kill these tumors — they eat the tumor microenvironment.' }, treatment: { en: 'EIPA (5-(N-ethyl-N-isopropyl)amiloride) — research tool that blocks macropinocytosis by inhibiting Na+/H+ exchanger NHE1. Combined with KRAS inhibitors in trials.' } },
         drugs: ['EIPA (research)', 'amiloride analogs'] },
 
-      { id: 'caveolae', label: 'Caveolae', sublabel: 'caveolin-coated cups · 50-80 nm', x: 880, y: 240, type: 'enzyme',
+      { id: 'caveolae', label: 'Caveolae', sublabel: 'caveolin-coated cups · 50-80 nm', x: 1320, y: 260, type: 'enzyme',
         memory: { glyph: '🥄', char: 'Cup-shaped pits' },
         hint: 'CUP-shaped pits in the plasma membrane (50-80 nm). Coat: caveolin-1 (most cells), caveolin-2 (with caveolin-1), caveolin-3 (muscle-specific). Sit in CHOLESTEROL- and SPHINGOLIPID-rich LIPID RAFTS. Dynamin-dependent (dynamin pinches the bud). CARGO: GPI-anchored proteins, glycosphingolipids, certain receptor subsets. SIGNALING: caveolae concentrate eNOS, src kinases, EGFR — they\'re signaling platforms as well as endocytic vesicles. PATHOGEN ENTRY: SV40 virus, cholera toxin B subunit (uses GM1 ganglioside), some bacteria.',
         clinical: { disorder: 'Caveolinopathies', findings: { en: 'Caveolin-1 (CAV1) mutations → congenital generalized lipodystrophy type 3 (loss of adipocyte caveolae → can\'t store fat). Caveolin-3 (CAV3) mutations → limb-girdle muscular dystrophy 1C, rippling muscle disease, hyperCKemia. Caveolae are abundant in endothelium, adipocytes, and muscle — diseases hit those tissues hardest.' } } },
 
       // (existing ap2 node continues below)
-      { id: 'ap2', label: 'Clathrin + AP2', sublabel: 'endocytosis adaptor', x: 1380, y: 240, type: 'enzyme',
+      { id: 'ap2', label: 'Clathrin + AP2', sublabel: 'endocytosis adaptor', x: 1520, y: 260, type: 'enzyme',
         memory: { glyph: '🪤', char: 'Receptor net' },
         hint: 'AP2 adaptor protein complex sits between clathrin and the cytoplasmic tail of cargo receptors. Recognizes YxxΦ motifs (Y = Tyr, Φ = bulky hydrophobic) and di-leucine motifs. Drives invagination of the coated pit → coated vesicle. ~100-150 nm vesicles. Dynamin-dependent. Major route for activated receptors (LDL-R, EGF-R, transferrin-R) and many viruses (influenza, HIV, hepatitis C).' },
 
-      { id: 'phago', label: 'Phagocytosis', sublabel: 'immune cells · large particles', x: 1640, y: 240, type: 'enzyme',
+      { id: 'phago', label: 'Phagocytosis', sublabel: 'immune cells · large particles', x: 1740, y: 260, type: 'enzyme',
         memory: { glyph: '😋', char: 'Particle eater' },
         hint: 'CELL-TYPE-SPECIFIC: macrophages, neutrophils, dendritic cells. Engulfs LARGE solid particles (>0.5 μm) — bacteria, dead cells, debris. RECEPTOR-DRIVEN: Fcγ receptors (IgG-opsonized particles), complement receptors (C3b-opsonized), scavenger receptors, dectin-1 (fungi), TLRs. Forms a phagosome that fuses with lysosomes → PHAGOLYSOSOME → respiratory burst (NADPH oxidase) + acid hydrolases kill the pathogen. NO clathrin/caveolin coat — actin polymerization drives the membrane around the particle.',
         clinical: { disorder: 'Chronic granulomatous disease (CGD)', findings: { en: 'NADPH oxidase deficiency (gp91phox X-linked, or autosomal subunits). Phagocytosis is INTACT but the respiratory burst fails → ingested microbes survive. Recurrent infections by catalase-positive organisms (S. aureus, Aspergillus, Burkholderia, Serratia, Nocardia — mnemonic SPACE). Diagnosed by abnormal dihydrorhodamine (DHR) flow test or nitroblue tetrazolium (NBT) test.' }, treatment: { en: 'Prophylactic TMP-SMX, itraconazole, IFN-γ. Bone-marrow transplant curative.' } } },
 
-      { id: 'dynamin', label: 'Dynamin', sublabel: 'GTPase pinch', x: 1380, y: 380, type: 'enzyme',
+      { id: 'dynamin', label: 'Dynamin', sublabel: 'GTPase pinch', x: 1520, y: 420, type: 'enzyme',
         memory: { glyph: '✂️', char: 'GTP-driven scissors' },
         hint: 'Large GTPase that wraps the neck of the budding vesicle. GTP hydrolysis drives a conformational change that severs the vesicle from the plasma membrane. Inhibited by Dynasore (research). DNM2 mutations cause centronuclear myopathy.' },
 
       // Tier 3 — early endosome (the SORTING fork)
-      { id: 'endosome', label: 'Early Endosome', sublabel: 'pH ~6 · sorting hub', x: 1380, y: 520, type: 'modifier',
+      { id: 'endosome', label: 'Early Endosome', sublabel: 'pH ~6 · sorting hub', x: 1380, y: 600, type: 'modifier',
         memory: { glyph: '🚪', char: 'Sorting room' },
         hint: 'The decision point. Endocytosed vesicles uncoat (lose clathrin) and fuse with the early endosome. V-ATPase acidifies the lumen to pH ~6. At this pH, many ligand-receptor pairs DISSOCIATE. From here, three fates: (1) Recycling to PM (LDL-R, transferrin-R, GLUT4), (2) Lysosomal degradation (EGFR, ligands), (3) Transcytosis (across polarized cells).' },
 
       // Tier 4 — branched fates: LDL pathway (left) vs EGF pathway (right)
       // LDL branch
-      { id: 'ldlr', label: 'LDL Receptor', sublabel: 'recycled · YxxΦ tail', x: 1180, y: 660, type: 'receptor',
+      { id: 'ldlr', label: 'LDL Receptor', sublabel: 'recycled · YxxΦ tail', x: 1180, y: 760, type: 'receptor',
         memory: { glyph: '🔄', char: 'Reusable receptor' },
         hint: 'Binds LDL particles (via apoB-100) at the cell surface. NPVY motif in cytoplasmic tail recognized by AP2 → clathrin endocytosis. In endosome at pH 6, LDL-R releases its cargo and RECYCLES back to PM — about 150 round trips per receptor lifetime. Makes biological sense: each cycle clears another batch of cholesterol from blood.',
         clinical: { disorder: 'Familial hypercholesterolemia (FH)', findings: { en: 'AD inheritance. LDLR mutations (or APOB, or PCSK9 gain-of-function). 5 molecular classes by which step fails (synthesis, transport to PM, ligand binding, clathrin-pit clustering [original Goldstein/Brown discovery], dissociation in endosome). Tendon xanthomas, xanthelasma, corneal arcus, premature MI. Heterozygote: MI in 40s. Homozygote: MI in childhood, requires LDL apheresis or liver transplant.' }, treatment: { en: 'Statins (↑LDLR via SREBP), PCSK9 inhibitors (evolocumab, alirocumab) — block PCSK9-driven LDLR degradation, ↓LDL further. Inclisiran (siRNA against PCSK9 mRNA), ezetimibe.' } } },
 
-      { id: 'recycle', label: 'Recycle to PM', sublabel: 'receptor reused', x: 1060, y: 100, type: 'effector',
+      { id: 'recycle', label: 'Recycle to PM', sublabel: 'receptor reused', x: 1190, y: 100, type: 'effector',
         memory: { glyph: '↩️', char: 'Loop home' },
         hint: 'Recycling endosomes carry the receptor back to the plasma membrane for another round of binding. This is the default fate for receptors WITHOUT ubiquitin tags. Same machinery handles transferrin receptor (iron uptake) and GLUT4 (insulin-driven glucose uptake).' },
 
-      { id: 'ldl', label: 'LDL particle', sublabel: 'cholesterol → lysosome', x: 1180, y: 800, type: 'ligand',
+      { id: 'ldl', label: 'LDL particle', sublabel: 'cholesterol → lysosome', x: 1180, y: 920, type: 'ligand',
         memory: { glyph: '🟡', char: 'Cholesterol packet' },
         hint: 'The LDL particle (~22 nm, ~1500 cholesterol esters + apoB-100) dissociates from its receptor at endosomal pH ~6. Continues deeper into the endolysosomal system → late endosome → lysosome → acid lipase hydrolyzes esters → free cholesterol exits to ER. Free cholesterol then suppresses HMG-CoA reductase + suppresses LDLR transcription (negative feedback).' },
 
       // EGF branch
-      { id: 'egfr', label: 'EGF Receptor', sublabel: 'degraded · ubiquitinated', x: 1580, y: 660, type: 'receptor',
+      { id: 'egfr', label: 'EGF Receptor', sublabel: 'degraded · ubiquitinated', x: 1700, y: 760, type: 'receptor',
         memory: { glyph: '🪦', char: 'One-shot receptor' },
         hint: 'RTK. Activated by EGF binding → dimerization + autophosphorylation → recruits Cbl (E3 ubiquitin ligase) to phospho-Tyr1045 → Cbl ubiquitinates EGFR cytoplasmic tail. The ubiquitin tag is a "destroy me" signal. Receptor follows the ESCRT/MVB → lysosome route, NOT recycled. The cell deliberately sacrifices the receptor to TIME-LIMIT the proliferative signal.',
         clinical: { disorder: 'Cancer driven by EGFR/HER2 dysregulation', findings: { en: 'EGFR activating mutations (exon 19 del, L858R) in NSCLC → constitutive dimerization, escapes Cbl ubiquitination. HER2 (ERBB2) amplification in breast cancer (~20%) — HER2 lacks Cbl-binding sites → poorly downregulated. Cbl loss-of-function → JMML, some AMLs.' }, treatment: { en: 'EGFR TKIs: erlotinib, gefitinib (1st gen), osimertinib (3rd gen, T790M-active). EGFR mAbs: cetuximab (colorectal KRAS WT, head/neck), panitumumab. HER2: trastuzumab, pertuzumab, T-DM1. Cetuximab partly works by promoting EGFR internalization + degradation.' } },
         drugs: ['cetuximab, panitumumab (EGFR mAbs)', 'erlotinib, osimertinib (TKIs)', 'trastuzumab (HER2 mAb)'] },
 
-      { id: 'mvb', label: 'MVB', sublabel: 'multivesicular body · ESCRT', x: 1580, y: 800, type: 'modifier',
+      { id: 'mvb', label: 'MVB', sublabel: 'multivesicular body · ESCRT', x: 1700, y: 920, type: 'modifier',
         memory: { glyph: '🫧', char: 'Vesicles inside vesicles' },
         hint: 'Multivesicular body. ESCRT-0/-I/-II/-III recognize ubiquitinated cargo (like activated EGFR) and drive INWARD invagination of the endosome membrane → intraluminal vesicles (ILVs) bud INTO the endosome lumen. The receptor is now on a vesicle inside the endosome — kinase domain points away from cytoplasmic substrates → signal terminated EVEN before lysosomal fusion.' },
 
       // Tier 5 — terminal lysosomal degradation (shared between LDL ligand and EGF complex)
-      { id: 'degrade', label: 'Lysosomal Degradation', sublabel: 'cargo destroyed', x: 1380, y: 960, type: 'output',
+      { id: 'degrade', label: 'Lysosomal Degradation', sublabel: 'cargo destroyed', x: 1380, y: 1080, type: 'output',
         memory: { glyph: '🪦', char: 'End of the line' },
         hint: 'Both the LDL particle (from the LDL-R route) and the entire EGFR + EGF complex (in MVBs) end up here. Acid hydrolases (delivered via the M6P route from trans-Golgi) digest cargo. Free cholesterol is exported back to the cytoplasm via NPC1 transporter (defective in Niemann-Pick type C). Ubiquitinated EGFR is degraded to amino acids — the cell must synthesize NEW receptor to respond again.' }
     ],

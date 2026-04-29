@@ -825,6 +825,9 @@ export default function App() {
   const [resetKey, setResetKey] = useState(0);
   const [spreadOn, setSpreadOn] = useState(false);
   const [storyView, setStoryView] = useState(false);
+  // Focus mode (pilot for vesicular cycle): user clicks a chunk button to dim
+  // everything else. null = show all.
+  const [focusGroup, setFocusGroup] = useState(null);
 
   const cycle = ALL_CYCLES.find(c => c.id === activeCycleId) || ALL_CYCLES[0];
 
@@ -832,6 +835,7 @@ export default function App() {
     setActiveStep(null);
     setView('explore');
     setCinemaOn(false);
+    setFocusGroup(null);
   }, [activeCycleId]);
 
   // When a step is selected on mobile, auto-open the side drawer
@@ -946,6 +950,32 @@ export default function App() {
                 </div>
               )}
 
+              {/* Focus-mode button row — only shown for cycles that define
+                  focusGroups in their pathway data. Lets the user dim
+                  everything outside one logical chunk. */}
+              {cycle.pathway?.focusGroups && (
+                <div className="focus-bar">
+                  <span className="focus-bar__lbl">Focus on:</span>
+                  <button
+                    className={`focus-chip ${focusGroup === null ? 'focus-chip--on' : ''}`}
+                    onClick={() => setFocusGroup(null)}
+                  >
+                    All
+                  </button>
+                  {cycle.pathway.focusGroups.map(g => (
+                    <button
+                      key={g.id}
+                      className={`focus-chip ${focusGroup === g.id ? 'focus-chip--on' : ''}`}
+                      onClick={() => setFocusGroup(focusGroup === g.id ? null : g.id)}
+                      title={g.tip || ''}
+                    >
+                      {g.glyph && <span style={{ marginRight: 4 }}>{g.glyph}</span>}
+                      {g.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <div className="stage__frame">
                 {(!cycle.layout || cycle.layout === 'circular' || cycle.layout === 'linear') && (
                   <>
@@ -994,6 +1024,11 @@ export default function App() {
                         showClinical={layers.clinical}
                         inhibitionFocus={layers.inhibition}
                         memoryMode={layers.memory}
+                        focusedNodeIds={(() => {
+                          if (!focusGroup || !cycle.pathway?.focusGroups) return null;
+                          const grp = cycle.pathway.focusGroups.find(g => g.id === focusGroup);
+                          return grp ? new Set(grp.nodes) : null;
+                        })()}
                       />
                     ) : cycle.layout === 'network' ? (
                       <NetworkDiagram
