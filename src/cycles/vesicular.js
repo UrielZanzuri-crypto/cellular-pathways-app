@@ -145,45 +145,45 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
   },
 
   pathway: {
-    viewBox: [0, 0, 1500, 1000],
+    viewBox: [0, 0, 1800, 1080],
     nodes: [
       // ========== ZONE A — COAT-PROTEIN ROUTES (left half) ==========
 
       // Tier 1 — ER and Golgi compartments (left column)
-      { id: 'er', label: 'ER', sublabel: 'protein synthesis', x: 130, y: 80, type: 'phase',
+      { id: 'er', label: 'ER', sublabel: 'protein synthesis', x: 200, y: 100, type: 'phase',
         memory: { glyph: '🏭', char: 'Protein factory' },
         hint: 'Endoplasmic reticulum. Site of co-translational translocation of secretory and membrane proteins through the Sec61 translocon. Quality control via calnexin/calreticulin chaperones; persistent misfolding triggers the unfolded-protein response (UPR — PERK, IRE1, ATF6). Misfolded proteins are retrotranslocated and degraded by the proteasome (ERAD).' },
 
-      { id: 'cisgolgi', label: 'cis-Golgi', sublabel: 'first Golgi face', x: 130, y: 240, type: 'phase',
+      { id: 'cisgolgi', label: 'cis-Golgi', sublabel: 'first Golgi face', x: 200, y: 340, type: 'phase',
         memory: { glyph: '📦', char: 'Sorting receiver' },
         hint: 'Receives COPII vesicles from ER. Site of N-glycan trimming and the start of mannose-6-phosphate tagging for lysosomal enzymes. Returns escaped ER residents (KDEL-tagged) to ER via COPI.' },
 
-      { id: 'tgn', label: 'trans-Golgi network', sublabel: 'final sorting hub', x: 130, y: 400, type: 'phase',
+      { id: 'tgn', label: 'trans-Golgi network', sublabel: 'final sorting hub', x: 200, y: 500, type: 'phase',
         memory: { glyph: '🚦', char: 'Sorting traffic-light' },
         hint: 'Final Golgi compartment. Sorts proteins to (1) plasma membrane (constitutive secretion), (2) lysosomes (clathrin/AP1 + M6P-tagged hydrolases), (3) regulated secretory granules (insulin, neurotransmitters). Cisternal-maturation model: cisternae move from cis to trans, with COPI bringing back resident enzymes.' },
 
       // Tier 2 — coat proteins (middle column of zone A)
-      { id: 'copii', label: 'COPII', sublabel: 'ER → cis-Golgi (anterograde)', x: 380, y: 145, type: 'enzyme',
+      { id: 'copii', label: 'COPII', sublabel: 'ER → cis-Golgi (anterograde)', x: 560, y: 180, type: 'enzyme',
         memory: { glyph: '➡️', char: 'Outbound truck' },
         hint: 'Coat assembled at ER exit sites (ERES). Components: Sar1-GTP (small GTPase, sets up the coat), Sec23/24 (cargo selection — Sec24 binds export motifs like di-acidic DxE), Sec13/31 (outer cage). Carries newly synthesized secretory and membrane proteins.',
         clinical: { disorder: 'Cranio-lenticulo-sutural dysplasia', findings: { en: 'SEC23A mutations → defective collagen export from ER → malformed sutures, lens dislocation, facial features.' } } },
 
-      { id: 'copi', label: 'COPI', sublabel: 'Golgi → ER (retrograde)', x: 380, y: 290, type: 'enzyme',
+      { id: 'copi', label: 'COPI', sublabel: 'Golgi → ER (retrograde)', x: 560, y: 300, type: 'enzyme',
         memory: { glyph: '⬅️', char: 'Return truck' },
         hint: 'Retrieves ER-resident proteins that escaped (KDEL motif → KDEL receptor → COPI bus back to ER). Also moves cargo between Golgi cisternae. Driven by ARF1 GTPase. Recognizes C-terminal KKXX motifs on membrane proteins.',
         drugs: ['Brefeldin A (research) — inhibits ARF-GEF → COPI fails → Golgi collapses into ER'] },
 
-      { id: 'clathrin', label: 'Clathrin', sublabel: 'triskelion lattice', x: 380, y: 430, type: 'enzyme',
+      { id: 'clathrin', label: 'Clathrin', sublabel: 'triskelion lattice', x: 450, y: 660, type: 'enzyme',
         memory: { glyph: '⚽', char: 'Soccer-ball cage' },
         hint: 'Three-legged trimers (triskelions) polymerize into a hexagonal/pentagonal cage. Cannot bind membrane directly — needs an adaptor protein (AP) complex. AP1 = trans-Golgi to lysosome. AP2 = plasma membrane to endosome. AP3 = lysosome-related organelles. Dynamin (GTPase) wraps the vesicle neck and pinches the bud off the membrane.' },
 
       // Tier 3 — destinations of coat routes
-      { id: 'lysosome', label: 'Lysosome', sublabel: 'acid hydrolases · pH ~5', x: 640, y: 600, type: 'phase',
+      { id: 'lysosome', label: 'Lysosome', sublabel: 'acid hydrolases · pH ~5', x: 350, y: 880, type: 'phase',
         memory: { glyph: '🪣', char: 'Acid bucket' },
         hint: 'Membrane-bound organelle with ~50 acid hydrolases (proteases, lipases, glycosidases, nucleases). pH ~5 maintained by V-ATPase. Hydrolases delivered from trans-Golgi via mannose-6-phosphate tag → AP1/clathrin route. Lysosomal storage diseases each = single-enzyme deficiency.',
         clinical: { disorder: 'Lysosomal storage diseases', findings: { en: 'Tay-Sachs (HEXA), Gaucher (β-glucocerebrosidase), Pompe (acid α-glucosidase), Fabry (α-galactosidase A, X-linked), Hurler (α-L-iduronidase), Hunter (iduronate sulfatase, X-linked).' }, treatment: { en: 'Enzyme replacement therapy for several (Gaucher, Pompe, Fabry, MPS I/II) — uses M6P targeting to deliver recombinant enzyme to lysosomes.' } } },
 
-      { id: 'm6p', label: 'M6P-tagged Hydrolases', sublabel: 'address-labeled enzymes', x: 380, y: 600, type: 'messenger',
+      { id: 'm6p', label: 'M6P-tagged Hydrolases', sublabel: 'address-labeled enzymes', x: 200, y: 660, type: 'messenger',
         memory: { glyph: '🏷️', char: 'Lysosome address' },
         hint: 'In cis-Golgi, GlcNAc-1-phosphotransferase tags lysosomal-destined acid hydrolases with mannose-6-phosphate (M6P). M6P receptors in trans-Golgi → bind tagged enzymes → AP1/clathrin → late endosome → lysosome. Loss of the tagging enzyme = I-cell disease (mucolipidosis II).',
         clinical: { disorder: 'I-cell disease (mucolipidosis II)', findings: { en: 'GlcNAc-1-phosphotransferase deficiency → no M6P tag → acid hydrolases secreted instead of trafficked to lysosome → "inclusion bodies" in cells, ↑↑ enzymes in plasma. Coarse facies, gingival hyperplasia, restricted joints, corneal clouding, severe developmental delay, death in childhood.' } } },
@@ -191,52 +191,52 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
       // ========== ZONE B — RECEPTOR FATES (right half) ==========
 
       // Tier 1 — plasma membrane
-      { id: 'pm', label: 'Plasma Membrane', sublabel: 'cell surface', x: 1000, y: 80, type: 'phase',
+      { id: 'pm', label: 'Plasma Membrane', sublabel: 'cell surface', x: 1380, y: 100, type: 'phase',
         memory: { glyph: '🌐', char: 'Cell surface' },
         hint: 'Cell-surface lipid bilayer. Site of receptor display, ion exchange, and clathrin-mediated endocytosis. Receptors clustered in clathrin-coated pits via cytoplasmic-tail sorting motifs (YxxΦ for LDL-R, di-leucine for many others).' },
 
       // Tier 2 — endocytosis machinery
-      { id: 'ap2', label: 'Clathrin + AP2', sublabel: 'endocytosis adaptor', x: 1000, y: 220, type: 'enzyme',
+      { id: 'ap2', label: 'Clathrin + AP2', sublabel: 'endocytosis adaptor', x: 1380, y: 240, type: 'enzyme',
         memory: { glyph: '🪤', char: 'Receptor net' },
         hint: 'AP2 adaptor protein complex sits between clathrin and the cytoplasmic tail of cargo receptors. Recognizes YxxΦ motifs (Y = Tyr, Φ = bulky hydrophobic) and di-leucine motifs. Drives invagination of the coated pit → coated vesicle.' },
 
-      { id: 'dynamin', label: 'Dynamin', sublabel: 'GTPase pinch', x: 1000, y: 340, type: 'enzyme',
+      { id: 'dynamin', label: 'Dynamin', sublabel: 'GTPase pinch', x: 1380, y: 380, type: 'enzyme',
         memory: { glyph: '✂️', char: 'GTP-driven scissors' },
         hint: 'Large GTPase that wraps the neck of the budding vesicle. GTP hydrolysis drives a conformational change that severs the vesicle from the plasma membrane. Inhibited by Dynasore (research). DNM2 mutations cause centronuclear myopathy.' },
 
       // Tier 3 — early endosome (the SORTING fork)
-      { id: 'endosome', label: 'Early Endosome', sublabel: 'pH ~6 · sorting hub', x: 1000, y: 460, type: 'modifier',
+      { id: 'endosome', label: 'Early Endosome', sublabel: 'pH ~6 · sorting hub', x: 1380, y: 520, type: 'modifier',
         memory: { glyph: '🚪', char: 'Sorting room' },
         hint: 'The decision point. Endocytosed vesicles uncoat (lose clathrin) and fuse with the early endosome. V-ATPase acidifies the lumen to pH ~6. At this pH, many ligand-receptor pairs DISSOCIATE. From here, three fates: (1) Recycling to PM (LDL-R, transferrin-R, GLUT4), (2) Lysosomal degradation (EGFR, ligands), (3) Transcytosis (across polarized cells).' },
 
       // Tier 4 — branched fates: LDL pathway (left) vs EGF pathway (right)
       // LDL branch
-      { id: 'ldlr', label: 'LDL Receptor', sublabel: 'recycled · YxxΦ tail', x: 770, y: 600, type: 'receptor',
+      { id: 'ldlr', label: 'LDL Receptor', sublabel: 'recycled · YxxΦ tail', x: 1180, y: 660, type: 'receptor',
         memory: { glyph: '🔄', char: 'Reusable receptor' },
         hint: 'Binds LDL particles (via apoB-100) at the cell surface. NPVY motif in cytoplasmic tail recognized by AP2 → clathrin endocytosis. In endosome at pH 6, LDL-R releases its cargo and RECYCLES back to PM — about 150 round trips per receptor lifetime. Makes biological sense: each cycle clears another batch of cholesterol from blood.',
         clinical: { disorder: 'Familial hypercholesterolemia (FH)', findings: { en: 'AD inheritance. LDLR mutations (or APOB, or PCSK9 gain-of-function). 5 molecular classes by which step fails (synthesis, transport to PM, ligand binding, clathrin-pit clustering [original Goldstein/Brown discovery], dissociation in endosome). Tendon xanthomas, xanthelasma, corneal arcus, premature MI. Heterozygote: MI in 40s. Homozygote: MI in childhood, requires LDL apheresis or liver transplant.' }, treatment: { en: 'Statins (↑LDLR via SREBP), PCSK9 inhibitors (evolocumab, alirocumab) — block PCSK9-driven LDLR degradation, ↓LDL further. Inclisiran (siRNA against PCSK9 mRNA), ezetimibe.' } } },
 
-      { id: 'recycle', label: 'Recycle to PM', sublabel: 'receptor reused', x: 600, y: 720, type: 'effector',
+      { id: 'recycle', label: 'Recycle to PM', sublabel: 'receptor reused', x: 1060, y: 100, type: 'effector',
         memory: { glyph: '↩️', char: 'Loop home' },
         hint: 'Recycling endosomes carry the receptor back to the plasma membrane for another round of binding. This is the default fate for receptors WITHOUT ubiquitin tags. Same machinery handles transferrin receptor (iron uptake) and GLUT4 (insulin-driven glucose uptake).' },
 
-      { id: 'ldl', label: 'LDL particle', sublabel: 'cholesterol → lysosome', x: 770, y: 720, type: 'ligand',
+      { id: 'ldl', label: 'LDL particle', sublabel: 'cholesterol → lysosome', x: 1180, y: 800, type: 'ligand',
         memory: { glyph: '🟡', char: 'Cholesterol packet' },
         hint: 'The LDL particle (~22 nm, ~1500 cholesterol esters + apoB-100) dissociates from its receptor at endosomal pH ~6. Continues deeper into the endolysosomal system → late endosome → lysosome → acid lipase hydrolyzes esters → free cholesterol exits to ER. Free cholesterol then suppresses HMG-CoA reductase + suppresses LDLR transcription (negative feedback).' },
 
       // EGF branch
-      { id: 'egfr', label: 'EGF Receptor', sublabel: 'degraded · ubiquitinated', x: 1230, y: 600, type: 'receptor',
+      { id: 'egfr', label: 'EGF Receptor', sublabel: 'degraded · ubiquitinated', x: 1580, y: 660, type: 'receptor',
         memory: { glyph: '🪦', char: 'One-shot receptor' },
         hint: 'RTK. Activated by EGF binding → dimerization + autophosphorylation → recruits Cbl (E3 ubiquitin ligase) to phospho-Tyr1045 → Cbl ubiquitinates EGFR cytoplasmic tail. The ubiquitin tag is a "destroy me" signal. Receptor follows the ESCRT/MVB → lysosome route, NOT recycled. The cell deliberately sacrifices the receptor to TIME-LIMIT the proliferative signal.',
         clinical: { disorder: 'Cancer driven by EGFR/HER2 dysregulation', findings: { en: 'EGFR activating mutations (exon 19 del, L858R) in NSCLC → constitutive dimerization, escapes Cbl ubiquitination. HER2 (ERBB2) amplification in breast cancer (~20%) — HER2 lacks Cbl-binding sites → poorly downregulated. Cbl loss-of-function → JMML, some AMLs.' }, treatment: { en: 'EGFR TKIs: erlotinib, gefitinib (1st gen), osimertinib (3rd gen, T790M-active). EGFR mAbs: cetuximab (colorectal KRAS WT, head/neck), panitumumab. HER2: trastuzumab, pertuzumab, T-DM1. Cetuximab partly works by promoting EGFR internalization + degradation.' } },
         drugs: ['cetuximab, panitumumab (EGFR mAbs)', 'erlotinib, osimertinib (TKIs)', 'trastuzumab (HER2 mAb)'] },
 
-      { id: 'mvb', label: 'MVB', sublabel: 'multivesicular body · ESCRT', x: 1230, y: 720, type: 'modifier',
+      { id: 'mvb', label: 'MVB', sublabel: 'multivesicular body · ESCRT', x: 1580, y: 800, type: 'modifier',
         memory: { glyph: '🫧', char: 'Vesicles inside vesicles' },
         hint: 'Multivesicular body. ESCRT-0/-I/-II/-III recognize ubiquitinated cargo (like activated EGFR) and drive INWARD invagination of the endosome membrane → intraluminal vesicles (ILVs) bud INTO the endosome lumen. The receptor is now on a vesicle inside the endosome — kinase domain points away from cytoplasmic substrates → signal terminated EVEN before lysosomal fusion.' },
 
       // Tier 5 — terminal lysosomal degradation (shared between LDL ligand and EGF complex)
-      { id: 'degrade', label: 'Lysosomal Degradation', sublabel: 'cargo destroyed', x: 1000, y: 870, type: 'output',
+      { id: 'degrade', label: 'Lysosomal Degradation', sublabel: 'cargo destroyed', x: 1380, y: 960, type: 'output',
         memory: { glyph: '🪦', char: 'End of the line' },
         hint: 'Both the LDL particle (from the LDL-R route) and the entire EGFR + EGF complex (in MVBs) end up here. Acid hydrolases (delivered via the M6P route from trans-Golgi) digest cargo. Free cholesterol is exported back to the cytoplasm via NPC1 transporter (defective in Niemann-Pick type C). Ubiquitinated EGFR is degraded to amino acids — the cell must synthesize NEW receptor to respond again.' }
     ],
@@ -271,7 +271,7 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
       { from: 'mvb', to: 'degrade', label: 'lysosomal fusion', style: 'activate' },
 
       // Cross-zone connection: lysosome (zone A) and degradation site (zone B) are functionally the same compartment
-      { from: 'lysosome', to: 'degrade', label: 'enzymes ready', style: 'activate' }
+      { from: 'lysosome', to: 'degrade', label: 'enzymes ready', noLabel: true, style: 'activate' }
     ]
   },
 
