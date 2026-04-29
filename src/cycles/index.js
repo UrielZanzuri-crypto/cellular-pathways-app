@@ -10,14 +10,16 @@ import { cellCycleCycle } from './cell-cycle.js';
 import { junctionsCycle } from './junctions.js';
 import { apoptosisCycle } from './apoptosis.js';
 import { coagulationCycle } from './coagulation.js';
+import { vesicularCycle } from './vesicular.js';
 
 export const CHAPTERS = [
-  { id: 'gpcr',        en: 'GPCR Signaling',                  he: 'איתות GPCR',                 order: 1 },
-  { id: 'rtk',         en: 'Receptor Tyrosine Kinases',       he: 'קולטני טירוזין קינאז',       order: 2 },
-  { id: 'cell-cycle',  en: 'The Cell Cycle',                  he: 'מחזור התא',                  order: 3 },
-  { id: 'junctions',   en: 'Cell Junctions & ECM',            he: 'חיבורים תאיים וECM',         order: 4 },
-  { id: 'apoptosis',   en: 'Apoptosis',                       he: 'אפופטוזיס',                  order: 5 },
-  { id: 'coagulation', en: 'Hemostasis & Coagulation',        he: 'המוסטזיס וקרישה',            order: 6 }
+  { id: 'gpcr',        en: 'GPCR Signaling',                         he: 'איתות GPCR',                       order: 1 },
+  { id: 'rtk',         en: 'Receptor Tyrosine Kinases',              he: 'קולטני טירוזין קינאז',             order: 2 },
+  { id: 'cell-cycle',  en: 'The Cell Cycle',                         he: 'מחזור התא',                        order: 3 },
+  { id: 'junctions',   en: 'Cell Junctions & ECM',                   he: 'חיבורים תאיים וECM',               order: 4 },
+  { id: 'apoptosis',   en: 'Apoptosis',                              he: 'אפופטוזיס',                        order: 5 },
+  { id: 'coagulation', en: 'Hemostasis & Coagulation',               he: 'המוסטזיס וקרישה',                  order: 6 },
+  { id: 'vesicular',   en: 'Vesicular Transport & Endocytosis',      he: 'הובלה וזיקולרית ואנדוציטוזה',      order: 7 }
 ];
 
 export const ALL_CYCLES = [
@@ -26,7 +28,8 @@ export const ALL_CYCLES = [
   cellCycleCycle,
   junctionsCycle,
   apoptosisCycle,
-  coagulationCycle
+  coagulationCycle,
+  vesicularCycle
 ];
 
 // Each cycle declares its own `chapter` string. The map below converts that
@@ -38,12 +41,13 @@ export const getCyclesByChapter = () => {
 
   ALL_CYCLES.forEach(c => {
     const chapterMap = {
-      'GPCR Signaling':            'gpcr',
-      'Receptor Tyrosine Kinases': 'rtk',
-      'The Cell Cycle':            'cell-cycle',
-      'Cell Junctions & ECM':      'junctions',
-      'Apoptosis':                 'apoptosis',
-      'Hemostasis & Coagulation':  'coagulation'
+      'GPCR Signaling':                         'gpcr',
+      'Receptor Tyrosine Kinases':              'rtk',
+      'The Cell Cycle':                         'cell-cycle',
+      'Cell Junctions & ECM':                   'junctions',
+      'Apoptosis':                              'apoptosis',
+      'Hemostasis & Coagulation':               'coagulation',
+      'Vesicular Transport & Endocytosis':      'vesicular'
     };
     const chId = chapterMap[c.chapter] || c.chapter;
     if (map[chId]) map[chId].cycles.push(c);
