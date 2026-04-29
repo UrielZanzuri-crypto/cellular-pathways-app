@@ -10,7 +10,7 @@ export const vesicularCycle = {
   order: 1,
   layout: 'pathway',
   title: { en: 'Vesicular Transport & Endocytosis', he: 'הובלה וזיקולרית ואנדוציטוזה' },
-  subtitle: { en: 'COPII / COPI / Clathrin coats · LDL recycling vs EGFR degradation' },
+  subtitle: { en: 'Coat proteins · 5 endocytic routes · LDL recycling vs EGFR degradation' },
 
   context: {
     tissue: { en: 'Universal — every eukaryotic cell uses these routes. Especially active in secretory cells (β-cells, plasma cells, hepatocytes, exocrine pancreas) and in cells that internalize a lot of receptor (hepatocytes for LDL, neurons for synaptic recycling).' },
@@ -107,6 +107,58 @@ After budding, **dynamin** (a GTPase that wraps the vesicle neck) hydrolyzes GTP
 **Big-picture contrast with LDL-R**: same clathrin-mediated endocytosis, same early endosome, same dissociation step — but **diverging fates set by sorting tags**. LDL-R has no ubiquitin tag → no ESCRT capture → recycled. EGFR is ubiquitinated → ESCRT captures → ILV → degraded. **Trafficking decisions encode regulatory logic**: a cell can repurpose the same machinery for opposite outcomes by tagging differently.`
     },
     {
+      title: 'Five endocytic routes — when each is used',
+      icon: '🚪',
+      body: `The plasma membrane has FIVE distinct routes for moving material from outside to inside. They differ by **coat protein, vesicle size, cargo type, dynamin-dependence, and cell-type specificity**. Recognizing each route + its clinical signature is high-yield.
+
+**1. Clathrin-mediated endocytosis (CME)** — the main exam route.
+- **Vesicle size**: ~100-150 nm.
+- **Coat**: clathrin triskelions + AP2 adaptor.
+- **Dynamin**: yes (pinches the bud).
+- **Cargo**: receptors with YxxΦ or di-leucine sorting motifs — LDL-R, transferrin-R, EGF-R, GPCRs being internalized after activation.
+- **Pathogens**: influenza virus, HIV (cell-type-dependent), hepatitis C virus.
+- **Clinical**: familial hypercholesterolemia (LDLR class 4 = bad NPVY → can\'t enter clathrin pits — the original Goldstein/Brown discovery).
+
+**2. Caveolae-mediated endocytosis** — the lipid-raft route.
+- **Vesicle size**: 50-80 nm. SMALLER than clathrin vesicles.
+- **Coat**: caveolin-1, -2, or -3 (CAV3 = muscle-specific). Forms cup-shaped pits enriched in cholesterol and sphingolipids (LIPID RAFTS).
+- **Dynamin**: yes.
+- **Cargo**: GPI-anchored proteins, glycosphingolipids, certain receptor subsets.
+- **Signaling platform**: caveolae concentrate eNOS, src kinases, EGFR — they\'re not just import vesicles, they\'re organizing centers for membrane signaling. Lots of caveolae in endothelium, adipocytes, smooth/skeletal muscle.
+- **Pathogens**: SV40 polyomavirus, cholera toxin B subunit (binds GM1 ganglioside in raft).
+- **Clinical**:
+   - **CAV1 mutations** → congenital generalized lipodystrophy type 3 (adipocytes can\'t form caveolae → can\'t store fat → severe metabolic disease).
+   - **CAV3 mutations** → limb-girdle muscular dystrophy 1C, rippling muscle disease, hyperCKemia, distal myopathy.
+
+**3. Macropinocytosis** — the bulk-fluid route.
+- **Vesicle size**: HUGE — > 1 μm (largest endocytic vesicles).
+- **Coat**: NONE. Driven by actin polymerization that creates large membrane RUFFLES that fold over and trap extracellular fluid.
+- **Dynamin**: NOT required.
+- **Cargo**: non-selective — whatever is in the surrounding fluid (proteins, salts, sugars).
+- **Triggered by**: growth factors (EGF, PDGF, M-CSF). Cell-type-dependent: macrophages, fibroblasts, dendritic cells (immature DCs use it for antigen sampling).
+- **Clinical — KRAS-mutant cancers**: pancreatic, colorectal, and lung tumors carrying KRAS mutations UPREGULATE macropinocytosis to scavenge extracellular protein → catabolize to amino acids → fuel growth even when blood supply is poor. They literally eat the tumor microenvironment ("scavenger pathway"). EIPA (a research Na+/H+ exchanger inhibitor) blocks this — combined with KRAS inhibitors in trials.
+
+**4. Phagocytosis** — the immune-cell route.
+- **Vesicle size**: largest — engulfs whole bacteria (1-3 μm), entire dying cells (10+ μm).
+- **Coat**: none. Actin polymerization wraps the membrane around the particle.
+- **Dynamin**: NOT required.
+- **Cell types**: ONLY macrophages, neutrophils, dendritic cells (the "professional phagocytes"). Some other cell types do limited phagocytosis (RPE eating outer-segment debris).
+- **Receptor-driven**: Fcγ-R (recognizes IgG-opsonized particles), complement receptor CR3 (C3b-opsonized), scavenger receptors, dectin-1 (β-glucan on fungi), TLRs.
+- **Outcome**: phagosome → fuses with lysosome → **phagolysosome** → respiratory burst (NADPH oxidase generates superoxide → H2O2 → HOCl by myeloperoxidase) + acid hydrolases destroy the pathogen.
+- **Clinical**:
+  - **Chronic granulomatous disease (CGD)**: NADPH oxidase deficiency (gp91phox X-linked most common). Phagocytosis intact but respiratory burst fails → catalase-positive bugs survive. Mnemonic for CGD pathogens: **SPACE** = S. aureus, Pseudomonas, Aspergillus, Candida, Enterobacteriaceae (Burkholderia, Serratia, Nocardia). Dx: abnormal dihydrorhodamine (DHR) flow or nitroblue-tetrazolium (NBT) test.
+  - **Chediak-Higashi syndrome**: LYST mutations → defective phagosome-lysosome fusion → recurrent infections + giant granules in neutrophils + partial albinism + neuropathy.
+  - **Leukocyte adhesion deficiency** (CD18 / β2 integrin): can\'t reach the infection site to phagocytose — see junctions cycle.
+
+**5. Clathrin/caveolae-independent endocytosis** — the catch-all routes.
+- Multiple subtypes (less exam-focused): **CLIC/GEEC** (CDC42-driven, dynamin-INdependent, takes up GPI-anchored proteins and fluid), **flotillin-dependent** (lipid-raft based without caveolin), **IL2R pathway** (RhoA-dependent).
+- **Vesicle sizes**: variable (50-400 nm).
+- Important biologically — about 30-50% of fluid uptake in non-immune cells.
+- Less exam-relevant beyond knowing they exist.
+
+**Quick mnemonic to remember which route uses dynamin**: clathrin and caveolae **need dynamin** (small, well-defined necks to pinch off). Macropinocytosis and phagocytosis are **dynamin-independent** (large folds; the actin cytoskeleton itself drives closure).`
+    },
+    {
       title: 'Clinical-grab-bag: lysosomal storage, I-cell, viral entry, autophagy',
       icon: '🏥',
       body: `**Mannose-6-phosphate sorting (M6P) — and I-cell disease.**
@@ -137,7 +189,7 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
   ],
 
   mnemonic: {
-    en: { phrase: '"Two outs, one in": COPII OUT (ER→Golgi), COPI back (Golgi→ER), Clathrin IN at PM. LDL-R recycles, EGF-R degrades.', breakdown: 'KDEL = ER-stay tag. M6P = lysosome address. Ubiquitin on EGF-R = "destroy me." YxxΦ on LDL-R cyto tail = "AP2 grab me."' }
+    en: { phrase: '"Two outs, one in" coats: COPII OUT, COPI back, Clathrin IN. FIVE endocytic routes: clathrin, caveolae, macropino, phago, indep. LDL-R recycles, EGF-R degrades.', breakdown: 'Dynamin needed for clathrin + caveolae (small necks). Macropino + phago use actin only. KDEL = ER. M6P = lysosome. Ub on EGFR = "destroy me."' }
   },
 
   compartments: {
@@ -193,12 +245,29 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
       // Tier 1 — plasma membrane
       { id: 'pm', label: 'Plasma Membrane', sublabel: 'cell surface', x: 1380, y: 100, type: 'phase',
         memory: { glyph: '🌐', char: 'Cell surface' },
-        hint: 'Cell-surface lipid bilayer. Site of receptor display, ion exchange, and clathrin-mediated endocytosis. Receptors clustered in clathrin-coated pits via cytoplasmic-tail sorting motifs (YxxΦ for LDL-R, di-leucine for many others).' },
+        hint: 'Cell-surface lipid bilayer. Site of receptor display, ion exchange, and FIVE distinct endocytic routes that differ by coat protein, vesicle size, cargo type, and dynamin-dependence: (1) clathrin-mediated, (2) caveolae-mediated, (3) macropinocytosis, (4) phagocytosis (immune cells only), (5) clathrin/caveolae-independent (CLIC/GEEC, flotillin). Each route handles different cargo and has different clinical relevance.' },
 
-      // Tier 2 — endocytosis machinery
+      // Alternative endocytic routes (branching from PM, parallel to AP2 column)
+      { id: 'macropino', label: 'Macropinocytosis', sublabel: '>1 μm bulk fluid uptake', x: 640, y: 240, type: 'enzyme',
+        memory: { glyph: '🌊', char: 'Bulk gulper' },
+        hint: 'NON-selective bulk fluid uptake. Driven by actin-polymerization-driven membrane RUFFLES that fold over and trap large volumes of extracellular fluid (>1 μm vesicles — the largest endocytic vesicles). Triggered by growth factors (EGF, PDGF, M-CSF). Used by immature dendritic cells for antigen sampling. NO coat protein. Cargo includes whatever is in the surrounding fluid — proteins, salts, dissolved nutrients.',
+        clinical: { disorder: 'KRAS-mutant cancers · "scavenger pathway"', findings: { en: 'KRAS-mutant pancreatic, colorectal, and lung cancers UPREGULATE macropinocytosis to scavenge extracellular proteins → catabolize to amino acids → fuel growth even when blood supply is poor. This is why nutrient-deprivation strategies don\'t kill these tumors — they eat the tumor microenvironment.' }, treatment: { en: 'EIPA (5-(N-ethyl-N-isopropyl)amiloride) — research tool that blocks macropinocytosis by inhibiting Na+/H+ exchanger NHE1. Combined with KRAS inhibitors in trials.' } },
+        drugs: ['EIPA (research)', 'amiloride analogs'] },
+
+      { id: 'caveolae', label: 'Caveolae', sublabel: 'caveolin-coated cups · 50-80 nm', x: 880, y: 240, type: 'enzyme',
+        memory: { glyph: '🥄', char: 'Cup-shaped pits' },
+        hint: 'CUP-shaped pits in the plasma membrane (50-80 nm). Coat: caveolin-1 (most cells), caveolin-2 (with caveolin-1), caveolin-3 (muscle-specific). Sit in CHOLESTEROL- and SPHINGOLIPID-rich LIPID RAFTS. Dynamin-dependent (dynamin pinches the bud). CARGO: GPI-anchored proteins, glycosphingolipids, certain receptor subsets. SIGNALING: caveolae concentrate eNOS, src kinases, EGFR — they\'re signaling platforms as well as endocytic vesicles. PATHOGEN ENTRY: SV40 virus, cholera toxin B subunit (uses GM1 ganglioside), some bacteria.',
+        clinical: { disorder: 'Caveolinopathies', findings: { en: 'Caveolin-1 (CAV1) mutations → congenital generalized lipodystrophy type 3 (loss of adipocyte caveolae → can\'t store fat). Caveolin-3 (CAV3) mutations → limb-girdle muscular dystrophy 1C, rippling muscle disease, hyperCKemia. Caveolae are abundant in endothelium, adipocytes, and muscle — diseases hit those tissues hardest.' } } },
+
+      // (existing ap2 node continues below)
       { id: 'ap2', label: 'Clathrin + AP2', sublabel: 'endocytosis adaptor', x: 1380, y: 240, type: 'enzyme',
         memory: { glyph: '🪤', char: 'Receptor net' },
-        hint: 'AP2 adaptor protein complex sits between clathrin and the cytoplasmic tail of cargo receptors. Recognizes YxxΦ motifs (Y = Tyr, Φ = bulky hydrophobic) and di-leucine motifs. Drives invagination of the coated pit → coated vesicle.' },
+        hint: 'AP2 adaptor protein complex sits between clathrin and the cytoplasmic tail of cargo receptors. Recognizes YxxΦ motifs (Y = Tyr, Φ = bulky hydrophobic) and di-leucine motifs. Drives invagination of the coated pit → coated vesicle. ~100-150 nm vesicles. Dynamin-dependent. Major route for activated receptors (LDL-R, EGF-R, transferrin-R) and many viruses (influenza, HIV, hepatitis C).' },
+
+      { id: 'phago', label: 'Phagocytosis', sublabel: 'immune cells · large particles', x: 1640, y: 240, type: 'enzyme',
+        memory: { glyph: '😋', char: 'Particle eater' },
+        hint: 'CELL-TYPE-SPECIFIC: macrophages, neutrophils, dendritic cells. Engulfs LARGE solid particles (>0.5 μm) — bacteria, dead cells, debris. RECEPTOR-DRIVEN: Fcγ receptors (IgG-opsonized particles), complement receptors (C3b-opsonized), scavenger receptors, dectin-1 (fungi), TLRs. Forms a phagosome that fuses with lysosomes → PHAGOLYSOSOME → respiratory burst (NADPH oxidase) + acid hydrolases kill the pathogen. NO clathrin/caveolin coat — actin polymerization drives the membrane around the particle.',
+        clinical: { disorder: 'Chronic granulomatous disease (CGD)', findings: { en: 'NADPH oxidase deficiency (gp91phox X-linked, or autosomal subunits). Phagocytosis is INTACT but the respiratory burst fails → ingested microbes survive. Recurrent infections by catalase-positive organisms (S. aureus, Aspergillus, Burkholderia, Serratia, Nocardia — mnemonic SPACE). Diagnosed by abnormal dihydrorhodamine (DHR) flow test or nitroblue tetrazolium (NBT) test.' }, treatment: { en: 'Prophylactic TMP-SMX, itraconazole, IFN-γ. Bone-marrow transplant curative.' } } },
 
       { id: 'dynamin', label: 'Dynamin', sublabel: 'GTPase pinch', x: 1380, y: 380, type: 'enzyme',
         memory: { glyph: '✂️', char: 'GTP-driven scissors' },
@@ -251,10 +320,16 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
       { from: 'm6p', to: 'clathrin', label: '+ AP1', style: 'activate' },
       { from: 'clathrin', to: 'lysosome', label: 'AP1 route', style: 'activate' },
 
-      // ZONE B — endocytosis from PM
+      // ZONE B — endocytosis from PM (FIVE routes branching from one membrane)
       { from: 'pm', to: 'ap2', label: 'clathrin pit', style: 'activate' },
+      { from: 'pm', to: 'caveolae', label: 'caveolin coat', style: 'activate' },
+      { from: 'pm', to: 'macropino', label: 'actin ruffles', style: 'activate' },
+      { from: 'pm', to: 'phago', label: 'particle engulf', style: 'activate' },
       { from: 'ap2', to: 'dynamin', label: 'pinches off', style: 'activate' },
       { from: 'dynamin', to: 'endosome', label: 'fuses', style: 'activate' },
+      { from: 'caveolae', to: 'endosome', label: 'caveosome → fuse', style: 'activate' },
+      { from: 'macropino', to: 'endosome', label: 'macropinosome', style: 'activate' },
+      { from: 'phago', to: 'degrade', label: 'phagolysosome', style: 'activate' },
 
       // ZONE B — fork at early endosome
       { from: 'endosome', to: 'ldlr', label: 'pH 6 dissociates', style: 'activate' },
@@ -317,6 +392,14 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
   bigPicture: {
     en: [
       { k: 'Three coats', v: 'COPII (ER → cis-Golgi, anterograde). COPI (Golgi → ER, retrograde). Clathrin (PM → endosome with AP2; trans-Golgi → lysosome with AP1).' },
+      { k: 'Five endocytic routes', v: '(1) Clathrin/AP2 — receptors, ~150 nm. (2) Caveolae — lipid rafts, 50-80 nm. (3) Macropinocytosis — bulk fluid, >1 μm. (4) Phagocytosis — large particles, immune cells only. (5) Clathrin/caveolae-independent — CLIC/GEEC, flotillin.' },
+      { k: 'Dynamin needed?', v: 'YES for clathrin + caveolae (small necks). NO for macropinocytosis + phagocytosis (large actin-driven folds).' },
+      { k: 'Caveolae', v: 'Cup-shaped 50-80 nm pits. Caveolin-1/-2/-3. Lipid-raft (cholesterol/sphingolipid) rich. Cargo: GPI-anchored proteins, cholera toxin B (GM1), SV40 virus. Also signaling platforms (eNOS, src).' },
+      { k: 'Caveolinopathies', v: 'CAV1 mutations → congenital generalized lipodystrophy type 3 (no adipocyte caveolae). CAV3 mutations → limb-girdle MD 1C, rippling muscle disease, hyperCKemia.' },
+      { k: 'Macropinocytosis', v: 'Largest endocytic vesicles (>1 μm). Actin ruffles fold over and trap fluid. NO coat, NO dynamin. Non-selective. Triggered by GFs.' },
+      { k: 'Macropino in cancer', v: 'KRAS-mutant pancreatic / colon / lung cancers UPREGULATE macropinocytosis to scavenge extracellular protein → amino acids → growth fuel. EIPA blocks it (research drug).' },
+      { k: 'Phagocytosis', v: 'Cell-type-specific: macrophages, neutrophils, dendritic cells. >0.5 μm particles. Receptor-driven (Fcγ, CR3, scavenger, dectin-1, TLRs). Forms phagolysosome → respiratory burst kills pathogen.' },
+      { k: 'Chronic granulomatous disease', v: 'NADPH oxidase deficiency (gp91phox X-linked most common). Phagocytosis intact, respiratory burst fails. Catalase+ infections (SPACE: S. aureus, Pseudomonas, Aspergillus, Candida, Enterobacteriaceae/Burkholderia/Serratia/Nocardia). Dx: DHR or NBT test. Rx: prophylactic TMP-SMX + itraconazole + IFN-γ.' },
       { k: 'COPII', v: 'Sar1 GTPase + Sec23/24 (cargo) + Sec13/31 (cage). Assembled at ER exit sites. Sec24 binds DxE export motif.' },
       { k: 'COPI', v: 'ARF1 GTPase. Retrieves KDEL-tagged ER residents and KKXX membrane proteins. Inhibited by Brefeldin A → Golgi collapses into ER.' },
       { k: 'Clathrin', v: 'Triskelion trimers form polyhedral cage. Needs adaptor (AP1, AP2, AP3, AP4) to bind cargo. Dynamin GTPase pinches the bud off.' },
@@ -353,6 +436,13 @@ Most enveloped viruses use a lipid-bilayer membrane that must fuse with a host m
     { id: 've-q13', difficulty: 'hard', prompt: { en: 'PCSK9 inhibitors (evolocumab, alirocumab) work by:' }, correct: 'Blocking PCSK9, which would otherwise target LDLR for lysosomal degradation', options: ['Blocking PCSK9, which would otherwise target LDLR for lysosomal degradation', 'Inhibiting HMG-CoA reductase', 'Inhibiting cholesterol absorption in the gut', 'Activating LDLR transcription directly'] },
     { id: 've-q14', difficulty: 'hard', prompt: { en: 'Brefeldin A causes Golgi to collapse into the ER by:' }, correct: 'Inhibiting ARF-GEF → COPI assembly fails → no retrograde traffic to maintain Golgi', options: ['Inhibiting ARF-GEF → COPI assembly fails → no retrograde traffic to maintain Golgi', 'Inhibiting clathrin', 'Disrupting microtubules', 'Blocking SNARE-mediated fusion'] },
     { id: 've-q15', difficulty: 'medium', prompt: { en: 'The MOST COMMON lysosomal storage disease is:' }, correct: 'Gaucher (β-glucocerebrosidase deficiency)', options: ['Gaucher (β-glucocerebrosidase deficiency)', 'Tay-Sachs', 'Pompe', 'Fabry'] },
-    { id: 've-q16', difficulty: 'hard', prompt: { en: 'Hunter and Fabry diseases share which inheritance pattern?' }, correct: 'X-linked recessive', options: ['X-linked recessive', 'Autosomal recessive', 'Autosomal dominant', 'Mitochondrial'] }
+    { id: 've-q16', difficulty: 'hard', prompt: { en: 'Hunter and Fabry diseases share which inheritance pattern?' }, correct: 'X-linked recessive', options: ['X-linked recessive', 'Autosomal recessive', 'Autosomal dominant', 'Mitochondrial'] },
+    { id: 've-q17', difficulty: 'medium', prompt: { en: 'Which endocytic route uses caveolin-coated cup-shaped pits in lipid rafts?' }, correct: 'Caveolae-mediated endocytosis', options: ['Caveolae-mediated endocytosis', 'Macropinocytosis', 'Clathrin-mediated endocytosis', 'Phagocytosis'] },
+    { id: 've-q18', difficulty: 'hard', prompt: { en: 'Cholera toxin B subunit enters cells primarily by:' }, correct: 'Caveolae-mediated endocytosis (binds GM1 ganglioside in lipid rafts)', options: ['Caveolae-mediated endocytosis (binds GM1 ganglioside in lipid rafts)', 'Clathrin-mediated endocytosis', 'Macropinocytosis', 'Phagocytosis'] },
+    { id: 've-q19', difficulty: 'hard', prompt: { en: 'KRAS-mutant pancreatic cancer cells UPREGULATE which endocytic route to scavenge extracellular protein for amino acid fuel?' }, correct: 'Macropinocytosis', options: ['Macropinocytosis', 'Caveolae-mediated', 'Clathrin-mediated', 'Phagocytosis'] },
+    { id: 've-q20', difficulty: 'medium', prompt: { en: 'Phagocytosis differs from macropinocytosis in that:' }, correct: 'Phagocytosis is receptor-driven (Fcγ, CR3, scavenger) and engulfs solid particles >0.5 μm; macropinocytosis is non-selective bulk fluid uptake', options: ['Phagocytosis is receptor-driven (Fcγ, CR3, scavenger) and engulfs solid particles >0.5 μm; macropinocytosis is non-selective bulk fluid uptake', 'Phagocytosis uses clathrin while macropinocytosis uses caveolin', 'Phagocytosis is dynamin-dependent while macropinocytosis is not', 'Phagocytosis happens in all cells while macropinocytosis is immune-cell-specific'] },
+    { id: 've-q21', difficulty: 'hard', prompt: { en: 'Chronic granulomatous disease (CGD) is caused by:' }, correct: 'NADPH oxidase deficiency (intact phagocytosis but failed respiratory burst)', options: ['NADPH oxidase deficiency (intact phagocytosis but failed respiratory burst)', 'Defective clathrin assembly', 'Caveolin-3 mutations', 'Loss of macropinocytosis'] },
+    { id: 've-q22', difficulty: 'hard', prompt: { en: 'Which two endocytic routes are DYNAMIN-INDEPENDENT?' }, correct: 'Macropinocytosis and phagocytosis (both actin-driven)', options: ['Macropinocytosis and phagocytosis (both actin-driven)', 'Clathrin-mediated and caveolae', 'Clathrin-mediated and macropinocytosis', 'All routes require dynamin'] },
+    { id: 've-q23', difficulty: 'hard', prompt: { en: 'CAV3 mutations cause:' }, correct: 'Limb-girdle muscular dystrophy 1C, rippling muscle disease, hyperCKemia', options: ['Limb-girdle muscular dystrophy 1C, rippling muscle disease, hyperCKemia', 'Familial hypercholesterolemia', 'Lipodystrophy type 3', 'I-cell disease'] }
   ]
 };
